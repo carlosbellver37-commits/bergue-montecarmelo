@@ -138,6 +138,8 @@
   height: calc(100% - 0.6rem);
   object-fit: contain;
   object-position: 50% 100%;
+  filter: drop-shadow(0.45rem 0.8rem 0.55rem rgb(44 27 24 / 0.18))
+    drop-shadow(1rem 1.5rem 1.15rem rgb(44 27 24 / 0.14));
   user-select: none;
   -webkit-user-drag: none;
   animation: producto-entra 1300ms var(--ease-out) 300ms both;
