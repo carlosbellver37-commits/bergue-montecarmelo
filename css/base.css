@@ -1,0 +1,390 @@
+:root {
+  /* Paleta Montecarmelo: papel, tinta y el burdeos de la cafetera */
+  --papel: #efede8;
+  --papel-hundido: #e5e2db;
+  --tinta: #1c1513;
+  --tinta-suave: #5f5650;
+  --burdeos: #561d1f;
+  --burdeos-claro: #8a3a33;
+  --rosa-viejo: #d9a49a;
+  --marco-color: #2c1b18;
+  --linea: rgb(28 21 19 / 0.16);
+
+  /* Tipografía: Fraunces como en Las Tablas; condensada para la navegación */
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-condensada: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Roboto", system-ui, sans-serif;
+
+  /* Escala tipográfica: cinco papeles y siempre la misma fuente para cada uno
+     · display  (Fraunces 300): títulos de sección
+     · titulo   (Fraunces 300): títulos dentro de una sección
+     · acento   (Fraunces cursiva): frases y subtítulos
+     · item     (Fraunces 400): nombres de productos
+     · cuerpo   (Roboto 300): textos y descripciones
+     · etiqueta (Barlow Condensed 600, mayúsculas): números, rótulos y navegación */
+  --t-display: clamp(2.4rem, 1.5rem + 3vw, 4rem);
+  --t-titulo: clamp(1.9rem, 1.3rem + 1.8vw, 2.9rem);
+  --t-acento: clamp(1rem, 0.94rem + 0.2vw, 1.12rem);
+  --t-item: 1.06rem;
+  --t-cuerpo: 0.98rem;
+  --t-descripcion: 0.84rem;
+  --t-etiqueta: 0.76rem;
+
+  --marco: clamp(0.5rem, 1.6vw, 1.75rem);
+  --gutter: clamp(1.25rem, 4vw, 4.25rem);
+  --alto-cabecera: 2.75rem;
+  --espacio-seccion: clamp(5rem, 3rem + 7vw, 10rem);
+
+  --dur-fast: 180ms;
+  --dur: 450ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Las anclas no quedan tapadas por la cápsula de navegación */
+  scroll-padding-top: 5rem;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  padding: var(--marco) var(--marco) 0;
+  background: var(--marco-color);
+  color: var(--tinta);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+.saltar {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 300;
+  padding: 0.6rem 1rem;
+  background: var(--tinta);
+  color: var(--papel);
+  transform: translateY(-250%);
+}
+
+.saltar:focus {
+  transform: none;
+}
+
+/* La web vive dentro de una lámina de papel enmarcada; la cabecera fija ocupa su
+   franja superior */
+.marco {
+  padding-top: var(--alto-cabecera);
+  background: var(--papel);
+  overflow: hidden;
+  /* clip: recorta igual, pero no se puede desplazar por código (scrollIntoView) */
+  overflow: clip;
+}
+
+/* --- Cabecera: barra plana arriba, cápsula de cristal líquido al bajar --- */
+
+.cabecera {
+  position: fixed;
+  top: var(--marco);
+  left: var(--marco);
+  right: var(--marco);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 4rem);
+  height: var(--alto-cabecera);
+  padding: 0.6rem var(--gutter) 0;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-family: var(--font-condensada);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    top 650ms var(--ease-out),
+    left 650ms var(--ease-out),
+    right 650ms var(--ease-out),
+    height 650ms var(--ease-out),
+    padding 650ms var(--ease-out),
+    border-radius 650ms var(--ease-out),
+    background-color 400ms ease,
+    border-color 400ms ease,
+    box-shadow 400ms ease,
+    color 300ms ease;
+}
+
+.cabecera.is-flotante {
+  top: 0.75rem;
+  left: max(0.75rem, calc((100vw - 62rem) / 2));
+  right: max(0.75rem, calc((100vw - 62rem) / 2));
+  height: 3.1rem;
+  padding: 0 0.5rem 0 1.4rem;
+  border-color: rgb(255 255 255 / 0.65);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.28) 55%, rgb(255 255 255 / 0.4));
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(255 255 255 / 0.3),
+    0 2px 6px rgb(28 21 19 / 0.06),
+    0 18px 40px -16px rgb(28 21 19 / 0.4);
+}
+
+/* Sobre el pie oscuro, el cristal se tiñe para que el texto siga leyéndose */
+.cabecera.is-flotante.sobre-oscuro {
+  border-color: rgb(255 255 255 / 0.18);
+  background: linear-gradient(135deg, rgb(44 27 24 / 0.55), rgb(44 27 24 / 0.35));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 18px 40px -16px rgb(0 0 0 / 0.6);
+  color: var(--papel);
+}
+
+.cabecera ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cabecera a {
+  text-decoration: none;
+  transition: color var(--dur-fast);
+}
+
+.cabecera a:hover,
+.cabecera a:focus-visible {
+  color: var(--burdeos-claro);
+}
+
+.cabecera__marca {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  letter-spacing: 0.08em;
+}
+
+/* "Montecarmelo" solo aparece en la cápsula */
+.cabecera__sede {
+  max-width: 0;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05em;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--burdeos);
+  opacity: 0;
+  transition: max-width 650ms var(--ease-out), opacity 400ms ease;
+}
+
+.cabecera.is-flotante .cabecera__sede {
+  max-width: 8em;
+  opacity: 1;
+}
+
+.cabecera.sobre-oscuro .cabecera__sede {
+  color: var(--rosa-viejo);
+}
+
+.cabecera__nav {
+  flex: 1;
+}
+
+.cabecera__nav li + li::before {
+  content: "/";
+  margin: 0 0.8em;
+  opacity: 0.55;
+}
+
+.cabecera__nav a[aria-current="true"] {
+  color: var(--burdeos-claro);
+}
+
+.cabecera.sobre-oscuro .cabecera__nav a[aria-current="true"] {
+  color: var(--rosa-viejo);
+}
+
+.cabecera__acciones {
+  align-items: center;
+  gap: clamp(0.9rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+}
+
+.cabecera__acciones a {
+  text-decoration: underline;
+  text-decoration-thickness: 1.25px;
+  text-underline-offset: 0.25em;
+}
+
+/* En la cápsula, "Encargos" se convierte en botón */
+.cabecera.is-flotante .cabecera__encargo {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--tinta);
+  color: var(--papel);
+  text-decoration: none;
+  transition: background-color var(--dur-fast);
+}
+
+.cabecera.is-flotante .cabecera__encargo:hover,
+.cabecera.is-flotante .cabecera__encargo:focus-visible {
+  background: var(--burdeos);
+  color: var(--papel);
+}
+
+.cabecera.is-flotante.sobre-oscuro .cabecera__encargo {
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+/* --- Piezas compartidas por las secciones --- */
+
+.etiqueta {
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--burdeos-claro);
+}
+
+.titulo-seccion {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 1rem + 8vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+}
+
+/* Botón en cápsula con la flecha dentro de un círculo.
+   --boton-tinta: color del texto y del círculo · --boton-fondo: fondo y flecha */
+.boton {
+  --boton-tinta: var(--papel);
+  --boton-fondo: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.45rem 0.45rem 0.45rem 1.5rem;
+  border: 1px solid var(--boton-tinta);
+  border-radius: 999px;
+  background: var(--boton-fondo);
+  color: var(--boton-tinta);
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color var(--dur-fast), color var(--dur-fast);
+}
+
+.boton__icono {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--boton-tinta);
+  color: var(--burdeos);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.boton:hover .boton__icono,
+.boton:focus-visible .boton__icono {
+  transform: translateX(0.25rem) rotate(-45deg);
+}
+
+/* Aparición al entrar en pantalla (pagina.js); siempre activa */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 900ms var(--ease-out) var(--retraso, 0s),
+    transform 1100ms var(--ease-out) var(--retraso, 0s);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+/* --- Cabecera en pantallas medianas y móvil --- */
+@media (max-width: 1100px) {
+  .cabecera__nav {
+    display: none;
+  }
+
+  .cabecera {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 680px) {
+  .cabecera {
+    font-size: 0.78rem;
+  }
+
+  .cabecera__llegar {
+    display: none;
+  }
+
+  .cabecera.is-flotante {
+    padding-left: 1.1rem;
+  }
+
+  .cabecera.is-flotante .cabecera__sede {
+    max-width: 0;
+    opacity: 0;
+  }
+}

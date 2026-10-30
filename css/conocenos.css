@@ -1,0 +1,432 @@
+/* --- Conócenos: título, fachada a todo el ancho, y debajo intro + tienda + horario --- */
+
+.conocenos {
+  position: relative;
+  padding: var(--espacio-seccion) 0 clamp(4rem, 8vw, 7rem);
+  border-top: 1px solid var(--linea);
+}
+
+/* Contorno: dos líneas finas burdeos que se dibujan con el scroll (conocenos.js) */
+.contorno {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.contorno path {
+  fill: none;
+  stroke: var(--burdeos);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.conocenos > :not(.contorno) {
+  position: relative;
+}
+
+.conocenos__cabeza {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 var(--gutter);
+}
+
+.conocenos__desde {
+  padding-bottom: 0.8rem;
+  text-align: right;
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--burdeos-claro);
+}
+
+.conocenos__desde em {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tinta);
+  font-variation-settings: "opsz" 36, "SOFT" 100, "WONK" 1;
+}
+
+/* Fachada: se descubre de los lados al centro al llegar, y el ratón la ilumina
+   como una farola (conocenos.js mueve --x/--y) */
+.fachada {
+  --x: 50%;
+  --y: 45%;
+  position: relative;
+  /* Pegada al borde izquierdo de la lámina */
+  width: min(100% - var(--gutter), 60rem);
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+}
+
+/* Recortada al edificio y fija, como pintada en la pared. Encima, las sombras de los
+   objetos (se alejan del ratón) y los propios objetos, para que la sombra asome detrás */
+.fachada__lienzo {
+  position: relative;
+  display: block;
+}
+
+.fachada__img {
+  width: 100%;
+}
+
+.fachada__capa {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fachada__capa > img {
+  position: absolute;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Sombras: luz por defecto arriba a la izquierda; quedan dentro de la fachada */
+.fachada__capa--sombras {
+  overflow: hidden;
+}
+
+.fachada__capa--sombras > img {
+  opacity: 0.5;
+  transform: translate(calc(10px * var(--prof)), calc(14px * var(--prof)));
+  transition: transform 600ms var(--ease-out);
+  will-change: transform;
+}
+
+/* Intro + dos recuadros en fila */
+.conocenos__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding: 0 var(--gutter);
+}
+
+.conocenos__intro {
+  max-width: 26rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 0.85rem + 0.7vw, 1.55rem);
+  line-height: 1.45;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+}
+
+/* Recuadro abierto que se dibuja al aparecer: arriba (avanza) → izquierda (baja)
+   → abajo (avanza); a la derecha solo un tramo, sin llegar a cerrar */
+@property --arriba {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --izquierda {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --abajo {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+.recuadro {
+  position: relative;
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.6rem 1.8rem 1.5rem;
+  color: var(--burdeos);
+  background:
+    linear-gradient(currentColor, currentColor) left top / var(--arriba) 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) left top / 1.5px var(--izquierda) no-repeat,
+    linear-gradient(currentColor, currentColor) left bottom / var(--abajo) 1.5px no-repeat,
+    var(--papel);
+  transition: transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out);
+}
+
+.recuadro::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.5px;
+  height: 46%;
+  background: currentColor;
+  transform-origin: top;
+  transition: transform 500ms var(--ease-in-out) calc(var(--retraso, 0s) + 1.4s);
+}
+
+.recuadro:not(.is-trazado) {
+  --arriba: 0%;
+  --izquierda: 0%;
+  --abajo: 0%;
+}
+
+.recuadro:not(.is-trazado)::after {
+  transform: scaleY(0);
+}
+
+.recuadro.is-trazado {
+  transition:
+    --arriba 0.6s var(--ease-in-out) var(--retraso, 0s),
+    --izquierda 0.45s var(--ease-in-out) calc(var(--retraso, 0s) + 0.5s),
+    --abajo 0.6s var(--ease-in-out) calc(var(--retraso, 0s) + 0.9s),
+    transform 500ms var(--ease-out),
+    box-shadow 500ms var(--ease-out);
+}
+
+.recuadro:hover,
+.recuadro:focus-within {
+  transform: translateY(-8px) rotate(0.5deg);
+  box-shadow: 0 22px 30px -18px rgb(86 29 31 / 0.4);
+}
+
+.recuadro p,
+.recuadro li {
+  color: var(--tinta);
+  line-height: 1.5;
+}
+
+.recuadro__titulo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.6rem);
+  letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+}
+
+.recuadro .recuadro__nota {
+  font-size: 0.88rem;
+  color: var(--tinta-suave);
+}
+
+.recuadro .recuadro__etiqueta {
+  margin-top: 0.3rem;
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--burdeos-claro);
+}
+
+.recuadro__lista {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92rem;
+}
+
+.recuadro__lista span {
+  margin-right: 0.4rem;
+  color: var(--burdeos-claro);
+}
+
+.recuadro__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.3rem;
+  font-size: 0.92rem;
+}
+
+.recuadro__acciones a {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.recuadro__acciones a:hover,
+.recuadro__acciones a:focus-visible {
+  color: var(--burdeos);
+}
+
+/* Huecos para las fotos reales de la tienda */
+.galeria {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: 0 var(--gutter);
+}
+
+.galeria__hueco {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed rgb(86 29 31 / 0.35);
+  border-radius: 1rem;
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 14px, rgb(28 21 19 / 0.035) 14px 15px),
+    var(--papel-hundido);
+}
+
+.galeria__hueco--alta {
+  aspect-ratio: auto;
+}
+
+.galeria__hueco span {
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+/* --- Encargos: franja burdeos, con los tres pasos --- */
+
+.encargos {
+  padding: var(--espacio-seccion) var(--gutter);
+  background: var(--burdeos);
+  color: var(--papel);
+}
+
+.encargos .etiqueta {
+  color: var(--rosa-viejo);
+}
+
+.encargos__cabeza {
+  display: grid;
+  gap: 1rem;
+}
+
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin: clamp(2.5rem, 6vw, 5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paso {
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(239 237 232 / 0.35);
+}
+
+.paso__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(3rem, 2rem + 3vw, 5rem);
+  line-height: 1;
+  color: var(--rosa-viejo);
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+}
+
+.paso__titulo {
+  margin: 0.8rem 0 0.5rem;
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.paso p {
+  max-width: 22rem;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.encargos__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Botón lleno: crema con la flecha burdeos */
+.boton--lleno {
+  --boton-fondo: var(--papel);
+  --boton-tinta: var(--burdeos);
+  border-color: var(--papel);
+}
+
+.boton--lleno .boton__icono {
+  background: var(--burdeos);
+  color: var(--papel);
+}
+
+.encargos .boton:not(.boton--lleno):hover,
+.encargos .boton:not(.boton--lleno):focus-visible {
+  --boton-fondo: rgb(239 237 232 / 0.12);
+}
+
+.boton--lleno:hover,
+.boton--lleno:focus-visible {
+  --boton-fondo: #fff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+  .conocenos__fila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .conocenos__intro {
+    grid-column: 1 / -1;
+    max-width: 36rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .conocenos__cabeza {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .conocenos__desde {
+    text-align: left;
+  }
+
+  /* En móvil la fachada se ve algo más grande y se recorre con el dedo */
+  .fachada {
+    width: 100%;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .fachada__lienzo {
+    width: 150vw;
+  }
+
+  .contorno {
+    display: none;
+  }
+
+  .conocenos__fila,
+  .pasos {
+    grid-template-columns: 1fr;
+  }
+
+  .galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .galeria__hueco--alta {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+}

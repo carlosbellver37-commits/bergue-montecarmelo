@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bergue Montecarmelo · Pastelería, panadería y cafetería</title>
+  <meta name="description" content="Pastelería, panadería y cafetería Bergue en Montecarmelo (Madrid). Café, tartas por encargo, heladería, salados y productos de temporada." />
+  <meta name="theme-color" content="#2c1b18" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/img/cafetera-nueva.png" fetchpriority="high" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css?v=37" />
+  <link rel="stylesheet" href="css/hero.css?v=40" />
+  <link rel="stylesheet" href="css/oferta.css?v=44" />
+  <link rel="stylesheet" href="css/conocenos.css?v=37" />
+  <link rel="stylesheet" href="css/pie.css?v=37" />
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- Barra superior: al bajar se convierte en una cápsula de cristal (nav.js) -->
+  <header class="cabecera" data-cabecera>
+    <a class="cabecera__marca" href="#inicio" aria-label="Bergue Montecarmelo, inicio">
+      <span class="cabecera__corchete" aria-hidden="true">[</span>
+      Bergue<span class="cabecera__sede"> Montecarmelo</span>
+      <span class="cabecera__corchete" aria-hidden="true">]</span>
+    </a>
+
+    <nav class="cabecera__nav" aria-label="Principal">
+      <ul>
+        <li><a href="#carta" data-enlace="carta">Qué hacemos</a></li>
+        <li><a href="#conocenos" data-enlace="conocenos">Conócenos</a></li>
+        <li><a href="#tienda" data-enlace="tienda">La tienda</a></li>
+        <li><a href="#contacto" data-enlace="contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <ul class="cabecera__acciones">
+      <li><a href="tel:+34911721853">Llamar</a></li>
+      <li class="cabecera__llegar"><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Monasterio+de+Li%C3%A9bana+5+28049+Madrid" target="_blank" rel="noopener">Cómo llegar</a></li>
+      <li><a class="cabecera__encargo" href="#encargos">Encargos</a></li>
+    </ul>
+  </header>
+
+  <div class="marco" id="inicio">
+    <main id="contenido">
+      <!-- Portada -->
+      <section class="hero" aria-labelledby="hero-titulo" data-hero>
+        <h1 class="hero__titulo" id="hero-titulo" aria-label="Bergue Montecarmelo">
+          <span class="hero__marca" aria-hidden="true" data-titulo>Bergue</span>
+          <span class="hero__sede" aria-hidden="true">Montecarmelo</span>
+        </h1>
+
+        <div class="hero__info">
+          <p class="hero__seccion">Pastelería · Panadería · Cafetería</p>
+          <h2 class="hero__nombre">Café, tartas de la casa y pan recién hecho</h2>
+          <p class="hero__texto">Desayunos, meriendas y encargos para cada celebración, hechos cada día en nuestro obrador familiar.</p>
+          <a class="hero__cta" href="#encargos">
+            <span aria-hidden="true">//</span><span>Hacer un encargo</span><span aria-hidden="true">//</span>
+          </a>
+        </div>
+
+        <figure class="hero__producto">
+          <img class="hero__img" src="assets/img/cafetera-nueva.png" width="1326" height="1187"
+               alt="Cafetera espresso con una taza blanca con el logotipo de Bergue" />
+          <span class="hero__vapor" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="hero__sombra" aria-hidden="true"></span>
+        </figure>
+
+        <dl class="hero__datos">
+          <div>
+            <dt>Dónde</dt>
+            <dd>C/ Monasterio de Liébana, 5-7<br />28049 Madrid</dd>
+          </div>
+          <div>
+            <dt>Horario</dt>
+            <dd>Lunes a domingo<br />8:00 – 21:30</dd>
+          </div>
+          <div>
+            <dt>Metro</dt>
+            <dd>L10 · Montecarmelo</dd>
+          </div>
+        </dl>
+
+        <a class="hero__bajar" href="#carta" aria-label="Bajar a lo que hacemos">
+          <span>Descubre</span>
+          <svg viewBox="0 0 16 28" aria-hidden="true"><path d="M8 1v25M1 19l7 7 7-7" /></svg>
+        </a>
+      </section>
+
+      <!-- Lo que hacemos: un cartel. Rejilla numerada de productos y, debajo, el texto y la
+           carta del que esté elegido (oferta.js) -->
+      <section class="oferta" id="carta" aria-labelledby="oferta-titulo" data-oferta>
+        <header class="oferta__cabeza">
+          <div>
+            <h2 class="oferta__titulo" id="oferta-titulo">Lo que hacemos</h2>
+            <p class="oferta__sub">en Bergue Montecarmelo</p>
+          </div>
+          <div class="oferta__intro">
+            <p class="oferta__etiqueta">Recién hecho</p>
+            <p>Seis mostradores y un mismo obrador. Elige uno y te contamos todo lo que preparamos: del café de la mañana a los dulces de cada temporada.</p>
+          </div>
+        </header>
+
+        <!-- Rejilla de productos. Al elegir uno, los demás se desvanecen, él se queda en su sitio y su
+             texto y su carta se colocan en las casillas libres (oferta.js) -->
+        <div class="vitrina" role="group" aria-label="Lo que hacemos" data-vitrina></div>
+      </section>
+      <!-- Conócenos: la fachada a todo el ancho, con luz que sigue al ratón (conocenos.js) -->
+      <section class="conocenos" id="conocenos" aria-labelledby="conocenos-titulo" data-conocenos>
+        <!-- Contorno: líneas finas que se dibujan con el scroll (conocenos.js) -->
+        <svg class="contorno" aria-hidden="true" data-contorno>
+          <path pathLength="1000" data-tramo="arriba" />
+          <path pathLength="1000" data-tramo="abajo" />
+        </svg>
+        <header class="conocenos__cabeza">
+          <h2 class="titulo-seccion" id="conocenos-titulo">Conócenos</h2>
+          <p class="conocenos__desde" data-reveal>Obrador familiar<br /><em>más de 30 años en Madrid norte</em></p>
+        </header>
+
+        <figure class="fachada" data-fachada>
+          <span class="fachada__lienzo">
+            <img class="fachada__img" src="assets/img/fachada/base.webp" width="1600" height="491" loading="lazy"
+                 alt="Ilustración de la fachada de Bergue: panadería, delicatessen, pastelería y cafetería con terraza" />
+            <!-- Sombras que se alejan del ratón y, encima, los objetos que las proyectan (conocenos.js) -->
+            <span class="fachada__capa fachada__capa--sombras" aria-hidden="true" data-sombras></span>
+            <span class="fachada__capa" aria-hidden="true" data-recortes></span>
+          </span>
+        </figure>
+
+        <div class="conocenos__fila" id="tienda">
+          <p class="conocenos__intro" data-reveal>
+            Bergue es una empresa familiar. Llevamos más de tres décadas en la hostelería
+            y en Montecarmelo lo seguimos haciendo como siempre: con tiempo, buena materia prima
+            y el horno encendido desde primera hora.
+          </p>
+
+          <article class="recuadro" data-trazar>
+            <h3 class="recuadro__titulo">Montecarmelo</h3>
+            <p>C/ Monasterio de Liébana, 5-7<br />28049 Madrid<br /><span class="recuadro__nota">Acceso por la Avda. Monasterio de El Escorial</span></p>
+            <p class="recuadro__nota">L10 · Montecarmelo · Bus 134, 178</p>
+            <p class="recuadro__acciones">
+              <a href="tel:+34911721853">91 172 18 53</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Monasterio+de+Li%C3%A9bana+5+28049+Madrid" target="_blank" rel="noopener">Cómo llegar →</a>
+            </p>
+          </article>
+
+          <article class="recuadro" data-trazar style="--retraso: 0.25s">
+            <h3 class="recuadro__titulo">Horario</h3>
+            <p>Lunes a domingo · 8:00 – 21:30<br /><span class="recuadro__nota">Horario ininterrumpido</span></p>
+            <!-- PENDIENTE: confirmar con el cliente el horario de agosto -->
+            <p class="recuadro__etiqueta">Agosto</p>
+            <ul class="recuadro__lista">
+              <li><span>1 – 14 de agosto</span> 8:00 – 15:00</li>
+              <li><span>15 – 31 de agosto</span> Cerrado</li>
+            </ul>
+          </article>
+        </div>
+
+      </section>
+
+      <!-- Encargos -->
+      <section class="encargos" id="encargos" aria-labelledby="encargos-titulo" data-oscuro>
+        <div class="encargos__cabeza">
+          <p class="etiqueta">Tartas, salados y celebraciones</p>
+          <h2 class="titulo-seccion" id="encargos-titulo">Encargos</h2>
+        </div>
+
+        <ol class="pasos">
+          <li class="paso" data-reveal>
+            <span class="paso__num">01</span>
+            <h3 class="paso__titulo">Elige</h3>
+            <p>Una tarta de la vitrina, una dedicada o una bandeja de salados para tu reunión.</p>
+          </li>
+          <li class="paso" data-reveal style="--retraso: 0.12s">
+            <span class="paso__num">02</span>
+            <h3 class="paso__titulo">Avísanos</h3>
+            <p>Llámanos o escríbenos con al menos 24 horas de antelación; en Navidad y Reyes, antes.</p>
+          </li>
+          <li class="paso" data-reveal style="--retraso: 0.24s">
+            <span class="paso__num">03</span>
+            <h3 class="paso__titulo">Recoge</h3>
+            <p>Pasa por la tienda el día acordado: lo tendremos listo y recién hecho.</p>
+          </li>
+        </ol>
+
+        <div class="encargos__acciones" data-reveal>
+          <a class="boton boton--lleno" href="tel:+34911721853">
+            <span class="boton__texto">Llamar · 91 172 18 53</span>
+            <span class="boton__icono" aria-hidden="true">→</span>
+          </a>
+          <a class="boton" href="mailto:info@pasteleriabergue.com?subject=Encargo%20en%20Bergue%20Montecarmelo">
+            <span class="boton__texto">Escribir un correo</span>
+            <span class="boton__icono" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pie: el marco oscuro se abre y se convierte en el pie -->
+  <footer class="pie" id="contacto" data-oscuro>
+    <div class="pie__cinta" aria-hidden="true">
+      <div class="pie__pista">
+        <span>Pan</span><i>✦</i><span>Tartas</span><i>✦</i><span>Café</span><i>✦</i><span>Helado</span><i>✦</i><span>Salados</span><i>✦</i><span>Temporada</span><i>✦</i>
+        <span>Pan</span><i>✦</i><span>Tartas</span><i>✦</i><span>Café</span><i>✦</i><span>Helado</span><i>✦</i><span>Salados</span><i>✦</i><span>Temporada</span><i>✦</i>
+      </div>
+    </div>
+
+    <div class="pie__rejilla">
+      <div class="pie__marca">
+        <p class="pie__bergue">Bergue</p>
+        <p class="pie__sede">Montecarmelo</p>
+      </div>
+
+      <div>
+        <h2 class="pie__titulo">Visítanos</h2>
+        <p>C/ Monasterio de Liébana, 5-7<br />28049 Madrid</p>
+        <p class="pie__suave">Lunes a domingo · 8:00 – 21:30</p>
+      </div>
+
+      <div>
+        <h2 class="pie__titulo">Contacto</h2>
+        <p><a href="tel:+34911721853">91 172 18 53</a><br /><a href="mailto:info@pasteleriabergue.com">info@pasteleriabergue.com</a></p>
+      </div>
+
+      <nav aria-label="Secciones">
+        <h2 class="pie__titulo">La casa</h2>
+        <ul class="pie__enlaces">
+          <li><a href="#carta">Qué hacemos</a></li>
+          <li><a href="#conocenos">Conócenos</a></li>
+          <li><a href="#encargos">Encargos</a></li>
+          <li><a href="https://bergueandfamily.com/">Bergue Las Tablas</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- PENDIENTE: razón social y CIF de la tienda de Montecarmelo (otros titulares que Las Tablas) -->
+    <p class="pie__legal">© 2026 Bergue Montecarmelo</p>
+  </footer>
+
+  <script type="module" src="js/hero.js?v=38"></script>
+  <script type="module" src="js/pagina.js?v=37"></script>
+  <script type="module" src="js/oferta.js?v=43"></script>
+  <script type="module" src="js/conocenos.js?v=37"></script>
+</body>
+</html>

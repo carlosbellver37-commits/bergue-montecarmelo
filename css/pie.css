@@ -1,0 +1,143 @@
+/* --- Pie: sobre el marco oscuro, con una cinta de palabras en contorno --- */
+
+.pie {
+  padding: clamp(3rem, 6vw, 5rem) 0 1.5rem;
+  color: var(--papel);
+}
+
+.pie__cinta {
+  overflow: hidden;
+  padding-block: 0.5rem;
+  border-block: 1px solid rgb(239 237 232 / 0.14);
+}
+
+.pie__pista {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: max-content;
+  animation: cinta 40s linear infinite;
+}
+
+.pie__pista span {
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: clamp(3rem, 1.5rem + 6vw, 7.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(239 237 232 / 0.55);
+}
+
+.pie__pista i {
+  font-style: normal;
+  font-size: clamp(1rem, 0.6rem + 1vw, 1.6rem);
+  color: var(--rosa-viejo);
+}
+
+.pie__rejilla {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter) clamp(2rem, 4vw, 3rem);
+}
+
+.pie__marca {
+  position: relative;
+  align-self: start;
+  justify-self: start;
+}
+
+/* ".pie p" fija el texto general del pie: estas reglas la superan en especificidad */
+.pie .pie__bergue {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 2rem + 3vw, 5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+}
+
+.pie .pie__sede {
+  margin: 0.2rem 0 0 2.2em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.5rem);
+  color: var(--rosa-viejo);
+  font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1;
+}
+
+.pie__titulo {
+  margin-bottom: 0.9rem;
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rosa-viejo);
+}
+
+.pie p,
+.pie li {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.pie a {
+  text-decoration: none;
+  border-bottom: 1px solid rgb(239 237 232 / 0.3);
+  transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.pie a:hover,
+.pie a:focus-visible {
+  color: var(--rosa-viejo);
+  border-color: currentColor;
+}
+
+.pie__suave {
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+.pie__enlaces {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pie .pie__legal {
+  padding: 1.25rem var(--gutter) 0;
+  border-top: 1px solid rgb(239 237 232 / 0.12);
+  font-family: var(--font-condensada);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+@keyframes cinta {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .pie__rejilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pie__marca {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .pie__rejilla {
+    grid-template-columns: 1fr;
+  }
+}
