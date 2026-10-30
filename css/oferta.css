@@ -48,13 +48,6 @@ html.is-oferta-abierta { overflow-anchor: none; }
 }
 
 .oferta.is-detalle .oferta__cabeza { opacity: 0; pointer-events: none; }
-.oferta.is-detalle { padding-top: 1.75rem; }
-.oferta.is-detalle .oferta__cabeza { display: none; }
-.vitrina.is-abierta {
-  grid-template-rows: var(--filas-detalle);
-  row-gap: 0;
-  margin-top: 0;
-}
 
 .oferta__titulo {
   font-family: var(--font-display);
@@ -372,9 +365,6 @@ html.is-oferta-abierta { overflow-anchor: none; }
 .ficha__panel .ficha__titulo { font-size: clamp(2rem, 3.3vw, 3rem); text-wrap: balance; }
 .ficha__panel .ficha__frase { font-size: 1.1rem; line-height: 1.4; }
 .ficha__panel .ficha__lead { margin-top: 0.8rem; font-size: 1rem; line-height: 1.5; max-width: none; text-wrap: pretty; }
-.ficha__panel .ficha__lead { text-align: justify; text-align-last: left; hyphens: auto; }
-.ficha__panel .carta-lista__nombre,
-.ficha__panel .carta-lista__desc { text-align: left; }
 .ficha__panel .ficha__acciones { margin-top: 1rem; }
 .ficha__panel .carta-lista { columns: var(--columnas-carta, 2); column-gap: 1.5rem; }
 .ficha__panel .carta-lista__nombre { font-size: 1.05rem; }
@@ -478,7 +468,7 @@ html.is-oferta-abierta { overflow-anchor: none; }
   /* La rejilla y todos sus productos conservan sus dimensiones al abrir. */
   .ficha__panel > .ficha__sobre { display: flow-root; }
   .ficha__hueco-movil { display: block; pointer-events: none; }
-  .ficha__panel .ficha__titulo { font-size: clamp(1.6rem, 6vw, 2.7rem); text-wrap: balance; hyphens: auto; }
+  .ficha__panel .ficha__titulo { font-size: clamp(1.6rem, 6vw, 2.7rem); text-wrap: initial; }
   .ficha__panel .ficha__frase { font-size: 0.95rem; line-height: 1.4; }
   .ficha__panel .ficha__lead { font-size: 0.95rem; line-height: 1.65; text-wrap: initial; }
   .ficha__panel .ficha__cab > .ficha__etiqueta { display: none; }
