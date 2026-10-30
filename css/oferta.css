@@ -378,8 +378,8 @@ html.is-oferta-abierta { overflow-anchor: none; }
 .ficha__sobre[data-alineacion="center"] { text-align: center; }
 .ficha__sobre[data-alineacion="center"] :is(.ficha__etiqueta, .ficha__acciones) { justify-content: center; }
 .oferta__reserva { height: 0; pointer-events: none; }
-.ficha__movil-control,
-.ficha__producto-movil { display: none; }
+.ficha__hueco-movil,
+.ficha__volver-movil { display: none; }
 
 /* Galería de cada servicio, después de su ficha y dentro de la misma sección. */
 .muestra {
@@ -465,51 +465,18 @@ html.is-oferta-abierta { overflow-anchor: none; }
   .vitrina__item { grid-column: auto; grid-row: auto; }
   .muestra__pista { grid-auto-columns: min(78%, 22rem); }
 
-  .oferta { scroll-margin-top: 5rem; }
-  .oferta.is-detalle .oferta__cabeza { display: none; }
-  .vitrina.is-abierta { display: block; margin-top: 0; }
-  .vitrina.is-abierta > .vitrina__item { display: none; }
-  .vitrina.is-abierta .ficha__panel { display: block; }
-  .ficha__panel > .ficha__sobre,
-  .ficha__panel > .ficha__carta {
-    position: static;
-    width: 100%;
-  }
+  /* La rejilla y todos sus productos conservan sus dimensiones al abrir. */
   .ficha__panel > .ficha__sobre { display: flow-root; }
-  .ficha__movil-control {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.6rem;
-    font: 600 0.72rem var(--font-condensada);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .ficha__movil-control .ficha__todos { min-height: 44px; font-size: 0.95rem; }
-  .ficha__cab > .ficha__etiqueta { display: none; }
-  .ficha__producto-movil {
-    display: block;
-    float: right;
-    width: 45%;
-    height: clamp(11rem, 49vw, 18rem);
-    margin: 0.4rem -0.25rem 0.75rem 0.8rem;
-    shape-outside: ellipse(50% 47% at 54% 50%);
-    shape-margin: 0.6rem;
-  }
-  .ficha__producto-movil img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0.35rem 0.8rem 0.55rem rgb(60 38 20 / 0.22));
-  }
-  .ficha__panel .ficha__titulo { font-size: clamp(1.8rem, 6.5vw, 3rem); text-wrap: initial; overflow-wrap: normal; }
-  .ficha__panel .ficha__frase { font-size: 1rem; line-height: 1.4; }
+  .ficha__hueco-movil { display: block; pointer-events: none; }
+  .ficha__panel .ficha__titulo { font-size: clamp(1.6rem, 6vw, 2.7rem); text-wrap: initial; }
+  .ficha__panel .ficha__frase { font-size: 0.95rem; line-height: 1.4; }
   .ficha__panel .ficha__lead { font-size: 0.95rem; line-height: 1.65; text-wrap: initial; }
-  .ficha__panel .ficha__acciones { clear: both; padding-top: 0.8rem; gap: 1rem; }
+  .ficha__panel .ficha__cab > .ficha__etiqueta { display: none; }
+  .ficha__volver-movil { display: block; clear: both; padding-top: 1rem; }
+  .ficha__panel .ficha__todos { min-height: 44px; font-size: 0.95rem; }
+  .ficha__panel .ficha__acciones { clear: both; gap: 1rem; }
   .ficha__panel .ficha__paso { min-height: 44px; }
-  .ficha__panel > .ficha__carta { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--tinta-cartel); }
+  .ficha__panel > .ficha__carta { padding-top: 1.2rem; border-top: 1px solid var(--tinta-cartel); }
   .ficha__panel .carta-lista { columns: 1; }
   .ficha__panel .carta-lista li { padding-block: 0.65rem; }
-  .oferta.is-detalle { padding-top: 2rem; }
 }

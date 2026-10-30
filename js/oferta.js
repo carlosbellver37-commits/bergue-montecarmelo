@@ -223,8 +223,7 @@ raiz.append(muestra);
 
 function htmlSobre(i) {
   const s = SERVICIOS[i];
-  return `<div class="ficha__movil-control"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button><span>${dos(i + 1)} · El mostrador</span></div>
-    <figure class="ficha__producto-movil"><img src="${IMG}/${s.id}-900.webp" alt="" width="900" height="900" /></figure>
+  return `<span class="ficha__hueco-movil" aria-hidden="true"></span>
     <div class="ficha__cab">
       <h3 class="ficha__titulo">${escapar(s.nombre)}</h3>
       <p class="ficha__frase">${escapar(s.frase)}</p>
@@ -232,6 +231,7 @@ function htmlSobre(i) {
     </div>
     <div class="ficha__cuerpo">
       <p class="ficha__lead">${escapar(s.lead)}</p>
+      <div class="ficha__volver-movil"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button></div>
       <div class="ficha__acciones">
         ${s.encargo ? `<a class="ficha__encargo" href="#encargos">Hacer un encargo →</a>` : ""}
         ${FOTOS[s.id].length ? '<button type="button" class="ficha__paso ficha__ver-fotos" data-ver-fotos>Ver fotografías ↓</button>' : ""}
@@ -327,7 +327,6 @@ async function abrir(i) {
   colocarTexto();
   actualizarMuestra();
   entrar(partes(), yaAbierto ? 120 : RETRASO_ENTRADA_MS);
-  if (estrecha.matches) raiz.scrollIntoView({ behavior: "smooth", block: "start" });
 
 }
 
@@ -430,18 +429,31 @@ function cajaProducto(img) {
 
 function colocarTexto() {
   if (abierto < 0) return;
-  // En móvil el texto fluye alrededor del producto mediante float/shape-outside.
-  // No se busca un hueco de escritorio que terminaría enviándolo todo debajo.
+  const marco = vitrina.getBoundingClientRect();
+  const foto = cajaProducto(botones[abierto].querySelector("img"));
+  // La foto original permanece en su celda. Un hueco invisible hace que el
+  // texto fluya alrededor de sus coordenadas, sin duplicarla ni recolocarla.
   if (estrecha.matches) {
     for (const el of [sobre, carta]) {
       el.removeAttribute("style");
       delete el.dataset.alineacion;
     }
-    reserva.style.height = "0px";
+    const y = Math.max(0, foto.top - marco.top);
+    const izquierda = foto.cx < marco.left + marco.width / 2;
+    const hueco = sobre.querySelector(".ficha__hueco-movil");
+    hueco.style.cssFloat = izquierda ? "left" : "right";
+    hueco.style.width = `${(izquierda ? foto.right - marco.left : marco.right - foto.left) + 14}px`;
+    hueco.style.height = `${foto.bottom - marco.top - y + 14}px`;
+    sobre.style.width = `${marco.width}px`;
+    sobre.style.left = "0px";
+    sobre.style.top = `${y}px`;
+    carta.style.width = `${marco.width}px`;
+    carta.style.left = "0px";
+    const yCarta = y + sobre.offsetHeight + 28;
+    carta.style.top = `${yCarta}px`;
+    reserva.style.height = `${Math.max(0, Math.ceil(yCarta + carta.offsetHeight + 48 - marco.height))}px`;
     return;
   }
-  const marco = vitrina.getBoundingClientRect();
-  const foto = cajaProducto(botones[abierto].querySelector("img"));
   const nav = document.querySelector(".cabecera").getBoundingClientRect();
   const margen = limitar(marco.width * 0.035, 20, 40);
   const arriba = Math.max(nav.bottom + 24, raiz.getBoundingClientRect().top + 48);
