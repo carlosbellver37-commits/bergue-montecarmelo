@@ -223,7 +223,9 @@ raiz.append(muestra);
 
 function htmlSobre(i) {
   const s = SERVICIOS[i];
-  return `<div class="ficha__cab">
+  return `<div class="ficha__movil-control"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button><span>${dos(i + 1)} · El mostrador</span></div>
+    <figure class="ficha__producto-movil"><img src="${IMG}/${s.id}-900.webp" alt="" width="900" height="900" /></figure>
+    <div class="ficha__cab">
       <h3 class="ficha__titulo">${escapar(s.nombre)}</h3>
       <p class="ficha__frase">${escapar(s.frase)}</p>
       <p class="ficha__etiqueta"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button><span>${dos(i + 1)} · El mostrador</span></p>
@@ -325,6 +327,7 @@ async function abrir(i) {
   colocarTexto();
   actualizarMuestra();
   entrar(partes(), yaAbierto ? 120 : RETRASO_ENTRADA_MS);
+  if (estrecha.matches) raiz.scrollIntoView({ behavior: "smooth", block: "start" });
 
 }
 
@@ -427,6 +430,16 @@ function cajaProducto(img) {
 
 function colocarTexto() {
   if (abierto < 0) return;
+  // En móvil el texto fluye alrededor del producto mediante float/shape-outside.
+  // No se busca un hueco de escritorio que terminaría enviándolo todo debajo.
+  if (estrecha.matches) {
+    for (const el of [sobre, carta]) {
+      el.removeAttribute("style");
+      delete el.dataset.alineacion;
+    }
+    reserva.style.height = "0px";
+    return;
+  }
   const marco = vitrina.getBoundingClientRect();
   const foto = cajaProducto(botones[abierto].querySelector("img"));
   const nav = document.querySelector(".cabecera").getBoundingClientRect();
