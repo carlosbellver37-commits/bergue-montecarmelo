@@ -292,6 +292,19 @@ const salir = (els) => Promise.all(els.map((el, j) => el.animate(
 
 /* --- Abrir y cerrar --- */
 
+function compactarFicha(i) {
+  const columnas = estrecha.matches ? 2 : COLUMNAS;
+  const filaElegida = Math.floor(i / columnas);
+  const alturas = Array.from({ length: Math.ceil(total / columnas) }, (_, fila) =>
+    fila < filaElegida ? "0px" : `${Math.ceil(Math.max(...botones.slice(fila * columnas, (fila + 1) * columnas).map(b => b.offsetHeight)))}px`);
+  vitrina.style.setProperty("--filas-detalle", alturas.join(" "));
+}
+
+function mantenerAncla(imagen, anterior) {
+  const diferencia = imagen.getBoundingClientRect().top - anterior;
+  if (Math.abs(diferencia) > 0.5) window.scrollTo({ top: window.scrollY + diferencia, behavior: "instant" });
+}
+
 async function abrir(i) {
   const id = ++cambio;
   if (abierto < 0) medirCelda();
@@ -300,6 +313,8 @@ async function abrir(i) {
   const yaAbierto = abierto >= 0;
   if (yaAbierto) await salir(partes());
   if (id !== cambio) return;
+
+  const ancla = (yaAbierto ? botones[abierto] : botones[i]).querySelector("img").getBoundingClientRect().top;
 
   document.documentElement.classList.add("is-oferta-abierta");
   raiz.classList.add("is-detalle");
@@ -324,6 +339,9 @@ async function abrir(i) {
     b.setAttribute("aria-pressed", String(j === i));
     b.inert = j !== i;
   });
+  compactarFicha(i);
+  colocarTexto();
+  mantenerAncla(fotoElegida, ancla);
   colocarTexto();
   actualizarMuestra();
   entrar(partes(), yaAbierto ? 120 : RETRASO_ENTRADA_MS);
@@ -336,11 +354,14 @@ async function cerrar() {
   await salir(partes());
   if (id !== cambio) return;
   const anterior = abierto;
+  const imagenAnterior = botones[anterior].querySelector("img");
+  const ancla = imagenAnterior.getBoundingClientRect().top;
   abierto = -1;
   sobre.hidden = true;
   carta.hidden = true;
   delete vitrina.dataset.pos;
   vitrina.classList.remove("is-abierta");
+  vitrina.style.removeProperty("--filas-detalle");
   panel.hidden = true;
   muestra.hidden = true;
   raiz.classList.remove("is-detalle");
@@ -353,6 +374,7 @@ async function cerrar() {
     b.inert = false;
   });
   medirCelda();
+  mantenerAncla(imagenAnterior, ancla);
   botones[anterior].focus({ preventScroll: true });
   // Se restablece el anclaje tras retirar la reserva, no durante el cambio de alto.
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -579,7 +601,7 @@ function actualizarEncuadre() {
   encuadrePendiente = true;
   requestAnimationFrame(() => {
     encuadrePendiente = false;
-    if (abierto >= 0) { colocarTexto(); actualizarMuestra(); }
+    if (abierto >= 0) { compactarFicha(abierto); colocarTexto(); actualizarMuestra(); }
     else medirCelda();
   });
 }
