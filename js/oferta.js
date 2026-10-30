@@ -129,11 +129,10 @@ const SERVICIOS = [
   },
 ];
 
-// Imágenes de producto del material de Las Tablas. Las imágenes ilustrativas
-// se identifican como tales y no se muestran interiores de otra tienda.
+// Galerías: solo fotografías propias de Bergue del material de Las Tablas.
+// No se muestran imágenes de Pinterest ni generadas con IA en estas galerías.
 const FOTOS = {
   cafeteria: [
-    [`${IMG}/cafeteria-900.webp`, "Café con leche y hielo", "Café"],
     [`${ALBUM}/pan/4.webp`, "Croissants en una vitrina", "Bollería"],
     [`${ALBUM}/pan/6.webp`, "Selección de bollería", "Para acompañar"],
   ],
@@ -157,14 +156,8 @@ const FOTOS = {
     [`${ALBUM}/pan/8.webp`, "Surtido de bollería", "Para compartir"],
     [`${ALBUM}/pan/9.webp`, "Bollería dorada", "Del horno"],
   ],
-  temporada: [
-    [`${ALBUM}/roscon.webp`, "Ilustración de un roscón de Reyes", "Roscón · imagen ilustrativa", true],
-    [`${IMG}/temporada-900.webp`, "Huevo de Pascua envuelto", "Pascua", true],
-  ],
-  heladeria: [
-    [`${ALBUM}/helados.webp`, "Ilustración de cucuruchos de helado", "Cucuruchos · imagen ilustrativa", true],
-    [`${IMG}/heladeria-900.webp`, "Copa de helado", "Copa de helado", true],
-  ],
+  temporada: [],
+  heladeria: [],
   gourmet: [
     [`${ALBUM}/gourmet/1.webp`, "Selección de productos gourmet", "Nuestra despensa"],
     [`${ALBUM}/gourmet/3.webp`, "Selección de quesos y conservas", "Para compartir"],
@@ -239,7 +232,7 @@ function htmlSobre(i) {
       <p class="ficha__lead">${escapar(s.lead)}</p>
       <div class="ficha__acciones">
         ${s.encargo ? `<a class="ficha__encargo" href="#encargos">Hacer un encargo →</a>` : ""}
-        <button type="button" class="ficha__paso ficha__ver-fotos" data-ver-fotos>Ver fotografías ↓</button>
+        ${FOTOS[s.id].length ? '<button type="button" class="ficha__paso ficha__ver-fotos" data-ver-fotos>Ver fotografías ↓</button>' : ""}
         <span class="ficha__pasos">
           <button type="button" class="ficha__paso" data-paso="-1" aria-label="Producto anterior">← Anterior</button>
           <button type="button" class="ficha__paso" data-paso="1" aria-label="Producto siguiente">Siguiente →</button>
@@ -251,6 +244,7 @@ function htmlSobre(i) {
 function htmlMuestra(i) {
   const servicio = SERVICIOS[i];
   const fotos = FOTOS[servicio.id];
+  if (!fotos.length) return "";
   return `<header class="muestra__cab">
       <div><p class="muestra__etiqueta">Bergue · ${escapar(servicio.nombre)}</p><h3 class="muestra__titulo">En imágenes</h3></div>
       <div class="muestra__controles" aria-label="Controles de la galería">
@@ -318,7 +312,7 @@ async function abrir(i) {
   sobre.innerHTML = htmlSobre(i);
   carta.innerHTML = htmlCarta(i);
   muestra.innerHTML = htmlMuestra(i);
-  muestra.hidden = false;
+  muestra.hidden = FOTOS[SERVICIOS[i].id].length === 0;
   sobre.hidden = false;
   carta.hidden = false;
   panel.hidden = false;
