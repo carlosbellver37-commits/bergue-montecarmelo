@@ -1,0 +1,112 @@
+
+  .visor {
+    width: 100vw;
+    height: 100svh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #f4eee0;
+    color: #3a241c;
+    overflow: hidden;
+  }
+  .visor[open] {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    animation: visor 400ms var(--ease-out);
+  }
+  .visor::backdrop { background: rgb(36 22 14 / 0.75); }
+  @keyframes visor {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .visor__cabeza {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: calc(0.7rem + env(safe-area-inset-top)) max(1.2rem, env(safe-area-inset-right)) 0.7rem max(1.6rem, env(safe-area-inset-left));
+    border-bottom: 2px solid #964b36;
+  }
+  .visor__titulo { font-family: 'Cormorant Garamond', 'Garamond', serif; font-weight: 500; font-size: 1.35rem; }
+  .visor__pagina { font-size: .75rem; letter-spacing: 0.12em; color: #964b36; }
+  .visor__modo {
+    margin-left: auto;
+    padding: 0.45rem 1rem;
+    border: 1px solid #964b36;
+    border-radius: 999px;
+    background: none;
+    color: #964b36;
+    font-size: .75rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+  .visor__modo:hover { background: #964b36; color: #f4eee0; }
+  .visor__pdf { font-size: .85rem; color: inherit; }
+  .visor__cerrar { border: 0; background: none; font-size: 2.2rem; line-height: 1; color: inherit; cursor: pointer; padding: 0 0.3rem; }
+
+  /* Miniaturas en columna a la izquierda (se crean por script: estilos globales) */
+  .visor__miniaturas {
+    list-style: none;
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    padding: 1rem;
+    overflow-y: auto;
+    border-right: 1px solid rgb(150 75 54 / 0.35);
+    scrollbar-width: thin;
+  }
+  .visor__miniaturas button { display: block; width: 100%; padding: 0; border: 2px solid transparent; background: none; cursor: pointer; opacity: 0.55; transition: opacity var(--dur-fast); }
+  .visor__miniaturas button:hover { opacity: 0.9; }
+  .visor__miniaturas button[aria-current='true'] { border-color: #964b36; opacity: 1; }
+  .visor__miniaturas img { display: block; width: 100%; height: auto; }
+
+  .visor__zona { position: relative; min-height: 0; }
+  .visor__hoja { height: 100%; overflow-y: auto; padding: 1.5rem 5rem 3rem; scrollbar-width: thin; }
+  /* Ajustada al ancho: grande y legible, con scroll vertical */
+  .visor__img {
+    display: block;
+    width: 100%;
+    max-width: 62rem;
+    height: auto;
+    margin-inline: auto;
+    box-shadow: 0 20px 44px -22px rgb(58 36 28 / 0.55);
+    cursor: zoom-out;
+    transition: opacity 250ms ease;
+  }
+  /* Página completa: cabe entera en pantalla */
+  .visor.is-completa .visor__hoja { display: grid; place-items: center; overflow: hidden; padding: 1rem 5rem; }
+  .visor.is-completa .visor__img { width: auto; max-width: 100%; max-height: calc(100svh - 7rem); cursor: zoom-in; }
+  .visor__img.is-cargando { opacity: 0.2; }
+
+  .visor__flecha {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid #964b36;
+    border-radius: 50%;
+    background: #f4eee0;
+    color: #964b36;
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--dur-fast), color var(--dur-fast);
+  }
+  .visor__flecha:hover:not(:disabled) { background: #964b36; color: #f4eee0; }
+  .visor__flecha:disabled { opacity: 0.25; cursor: default; }
+  .visor__flecha--ant { left: 1rem; }
+  .visor__flecha--sig { right: 1.4rem; }
+
+  @media (max-width: 760px) {
+    .visor[open] { grid-template-columns: 100%; grid-template-rows: auto minmax(0, 1fr); }
+    .visor__miniaturas, .visor__pdf, .visor__modo { display: none; }
+    .visor__hoja { padding: 0.8rem 0.8rem 5rem; }
+    .visor__flecha { top: auto; bottom: 1rem; translate: none; }
+  }
+
+@media(max-width:760px){.visor__cabeza{gap:.7rem;padding-inline:1rem}.visor__titulo{font-size:1.1rem}.visor__cerrar{margin-left:auto;min-width:44px;min-height:44px}.visor__flecha{width:3rem;height:3rem}.visor__pagina{white-space:nowrap}}

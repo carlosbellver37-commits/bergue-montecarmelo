@@ -14,9 +14,10 @@
   <link rel="stylesheet" href="css/base.css?v=37" />
   <link rel="stylesheet" href="css/hero.css?v=43" />
   <link rel="stylesheet" href="css/hero-cafetera.css?v=4" />
-  <link rel="stylesheet" href="css/oferta.css?v=53" />
+  <link rel="stylesheet" href="css/oferta.css?v=54" />
   <link rel="stylesheet" href="css/conocenos.css?v=37" />
   <link rel="stylesheet" href="css/pie.css?v=37" />
+  <link rel="stylesheet" href="css/catalogos.css?v=1" />
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -265,7 +266,30 @@
 
   <script type="module" src="js/hero.js?v=38"></script>
   <script type="module" src="js/pagina.js?v=37"></script>
-  <script type="module" src="js/oferta.js?v=53"></script>
+  <script type="module" src="js/oferta.js?v=54"></script>
   <script type="module" src="js/conocenos.js?v=37"></script>
+<dialog class="visor" aria-labelledby="visor-titulo" data-visor data-lenis-prevent>
+  <header class="visor__cabeza">
+    <h4 class="visor__titulo" id="visor-titulo" data-visor-titulo></h4>
+    <p class="visor__pagina" aria-live="polite" data-visor-pagina></p>
+    <button type="button" class="visor__modo" aria-pressed="false" data-visor-modo>Ver página completa</button>
+    <a class="visor__pdf" href="#" download data-visor-pdf>Descargar PDF</a>
+    <button type="button" class="visor__cerrar" aria-label="Cerrar catálogo" autofocus data-visor-cerrar>×</button>
+  </header>
+
+  <ol class="visor__miniaturas" data-visor-minis></ol>
+
+  <div class="visor__zona">
+    <div class="visor__hoja" data-visor-hoja>
+      <img class="visor__img" alt="" data-visor-img />
+    </div>
+    <button type="button" class="visor__flecha visor__flecha--ant" aria-label="Página anterior" data-visor-ant>‹</button>
+    <button type="button" class="visor__flecha visor__flecha--sig" aria-label="Página siguiente" data-visor-sig>›</button>
+  </div>
+</dialog>
+
+
+<script type="application/json" id="catalogos-datos">[{"id":"tartas","titulo":"Carta de tartas","pdf":"assets/catalogos/tartas.pdf","paginas":["assets/catalogos/tartas/1.webp","assets/catalogos/tartas/2.webp","assets/catalogos/tartas/3.webp","assets/catalogos/tartas/4.webp","assets/catalogos/tartas/5.webp","assets/catalogos/tartas/6.webp","assets/catalogos/tartas/7.webp","assets/catalogos/tartas/8.webp","assets/catalogos/tartas/9.webp","assets/catalogos/tartas/10.webp","assets/catalogos/tartas/11.webp","assets/catalogos/tartas/12.webp","assets/catalogos/tartas/13.webp","assets/catalogos/tartas/14.webp","assets/catalogos/tartas/15.webp","assets/catalogos/tartas/16.webp","assets/catalogos/tartas/17.webp","assets/catalogos/tartas/18.webp","assets/catalogos/tartas/19.webp"]},{"id":"pasteles","titulo":"Carta de pasteles","pdf":"assets/catalogos/pasteles.pdf","paginas":["assets/catalogos/pasteles/1.webp","assets/catalogos/pasteles/2.webp","assets/catalogos/pasteles/3.webp"]},{"id":"pastas","titulo":"Pastas de té","pdf":"assets/catalogos/pastas.pdf","paginas":["assets/catalogos/pastas/1.webp","assets/catalogos/pastas/2.webp","assets/catalogos/pastas/3.webp"]}]</script>
+<script type="module" src="js/catalogos.js?v=1"></script>
 </body>
 </html>

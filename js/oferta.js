@@ -562,7 +562,7 @@ const botones = SERVICIOS.map((s, i) => {
   b.style.setProperty("--c", (i % COLUMNAS) + 1);
   b.style.setProperty("--r", Math.floor(i / COLUMNAS) + 1);
   b.innerHTML = `<span class="vitrina__num">${dos(i + 1)}.</span>
-      <span class="vitrina__foto"><img src="${IMG}/${s.id}-480.webp" srcset="${IMG}/${s.id}-480.webp 1x, ${IMG}/${s.id}-900.webp 2x" alt="" loading="lazy" /></span>
+      <span class="vitrina__foto"><img src="${IMG}/${s.id === 'salados' ? 'sandwich-480.png' : s.id + '-480.webp'}" srcset="${IMG}/${s.id === 'salados' ? 'sandwich-480.png' : s.id + '-480.webp'} 1x, ${IMG}/${s.id === 'salados' ? 'sandwich-900.png' : s.id + '-900.webp'} 2x" alt="" loading="lazy" /></span>
       <span class="vitrina__nombre">${escapar(s.nombre)}</span>`;
   b.addEventListener("click", (e) => {
     if (e.detail > 0) b.blur();
@@ -649,7 +649,7 @@ function htmlMuestra(i) {
 
 function htmlCatalogos(s) {
   if (!s.catalogos) return "";
-  return `<nav class="ficha__catalogos" aria-label="Catálogos de pastelería">${s.catalogos.map(c => `<a href="assets/catalogos/${escapar(c.id)}.pdf" target="_blank" rel="noopener"><span>${escapar(c.nombre)}</span><span class="ficha__catalogo-tipo">Ver PDF ↗</span></a>`).join("")}</nav>`;
+  return '<div class="ficha__catalogos" aria-label="Catálogos de pastelería">' + s.catalogos.map(c => `<button type="button" data-abrir-catalogo="${escapar(c.id)}"><span class="catalogo__hojas"><img class="catalogo__interior" src="assets/catalogos/${escapar(c.id)}/2.webp" alt="" width="440" height="622" loading="lazy"><img class="catalogo__portada" src="assets/catalogos/${escapar(c.id)}/1.webp" alt="" width="440" height="622" loading="lazy"></span><span>${escapar(c.nombre)}</span><span class="ficha__catalogo-tipo">Abrir carta ↗</span></button>`).join('') + '</div>';
 }
 
 function htmlCarta(i) {
