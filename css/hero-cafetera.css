@@ -28,6 +28,6 @@
   overflow: visible;
 }
 
-/* Marca grabada: relieve sutil sobre el mismo esmalte, sin fondo ni aro. */
-.cf-marca { opacity: 0; animation: marca-grabada 900ms ease-out 650ms forwards; }
-@keyframes marca-grabada { to { opacity: 1; } }
+/* Firma visible, del mismo carácter tipográfico que la web. */
+.cf-marca { opacity: 1; }
+.cf-firma { font-family: var(--font-display); font-size: 112px; font-weight: 800; letter-spacing: -5px; font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0; }
