@@ -78,18 +78,12 @@
               <defs>
                 <!-- Las zonas claras dejan pasar el esmalte; solo queda la tinta del dibujo. -->
                 <filter id="marca-tinta" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
-                  <feColorMatrix type="matrix" values="0 0 0 0 .22  0 0 0 0 .13  0 0 0 0 .075  -.2126 -.7152 -.0722 1 0" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 .22  0 0 0 0 .13  0 0 0 0 .075  -.55276 -1.85952 -.18772 2.6 -.2" />
                   <feComposite in2="SourceAlpha" operator="in" />
                 </filter>
-                <linearGradient id="marca-luz" x1="0" y1="0" x2="1" y2=".3">
-                  <stop offset="0" stop-color="#fff" stop-opacity=".96" />
-                  <stop offset=".48" stop-color="#fff" stop-opacity=".82" />
-                  <stop offset="1" stop-color="#fff" stop-opacity=".94" />
-                </linearGradient>
-                <mask id="marca-esmalte" maskUnits="userSpaceOnUse"><rect x="590" y="880" width="195" height="190" fill="url(#marca-luz)" /></mask>
               </defs>
-              <g class="cf-marca" transform="translate(688 972) skewX(-1.5) scale(1 .96) translate(-688 -972)" mask="url(#marca-esmalte)">
-                <image href="assets/branding/bergue-panadero.png" x="600" y="884" width="176" height="176" filter="url(#marca-tinta)" />
+              <g class="cf-marca">
+                <image href="assets/branding/bergue-panadero.png" x="588" y="869" width="200" height="200" filter="url(#marca-tinta)" />
               </g>
             </svg>
           </div>
