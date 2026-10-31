@@ -29,5 +29,5 @@
 }
 
 /* Firma visible, del mismo carácter tipográfico que la web. */
-.cf-marca { opacity: 1; }
+.cf-marca { opacity: 1; mix-blend-mode: multiply; }
 .cf-firma { font-family: var(--font-display); font-size: 112px; font-weight: 800; letter-spacing: -5px; font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0; }

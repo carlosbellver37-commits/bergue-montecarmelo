@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css?v=37" />
   <link rel="stylesheet" href="css/hero.css?v=42" />
-  <link rel="stylesheet" href="css/hero-cafetera.css?v=3" />
+  <link rel="stylesheet" href="css/hero-cafetera.css?v=4" />
   <link rel="stylesheet" href="css/oferta.css?v=48" />
   <link rel="stylesheet" href="css/conocenos.css?v=37" />
   <link rel="stylesheet" href="css/pie.css?v=37" />
@@ -75,8 +75,21 @@
 
             <!-- Controles de nueva construcción y firma de la casa sobre el esmalte. -->
             <svg class="hero__cafe" viewBox="0 0 1367 1151" focusable="false">
-              <g class="cf-marca">
-                <image href="assets/branding/bergue-panadero.png" x="594" y="875" width="188" height="188" />
+              <defs>
+                <!-- Las zonas claras dejan pasar el esmalte; solo queda la tinta del dibujo. -->
+                <filter id="marca-tinta" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
+                  <feColorMatrix type="matrix" values="0 0 0 0 .22  0 0 0 0 .13  0 0 0 0 .075  -.2126 -.7152 -.0722 1 0" />
+                  <feComposite in2="SourceAlpha" operator="in" />
+                </filter>
+                <linearGradient id="marca-luz" x1="0" y1="0" x2="1" y2=".3">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".96" />
+                  <stop offset=".48" stop-color="#fff" stop-opacity=".82" />
+                  <stop offset="1" stop-color="#fff" stop-opacity=".94" />
+                </linearGradient>
+                <mask id="marca-esmalte" maskUnits="userSpaceOnUse"><rect x="590" y="880" width="195" height="190" fill="url(#marca-luz)" /></mask>
+              </defs>
+              <g class="cf-marca" transform="translate(688 972) skewX(-1.5) scale(1 .96) translate(-688 -972)" mask="url(#marca-esmalte)">
+                <image href="assets/branding/bergue-panadero.png" x="600" y="884" width="176" height="176" filter="url(#marca-tinta)" />
               </g>
             </svg>
           </div>
