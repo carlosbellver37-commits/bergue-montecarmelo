@@ -28,35 +28,6 @@
   overflow: visible;
 }
 
-/* --- La B de Bergue: se dibuja el aro, aparece el disco, entra la letra y un brillo cruza el esmalte --- */
-.cf-b__aro {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: cf-aro 1100ms var(--ease-in-out) 1500ms forwards;
-}
-.cf-b__sombra,
-.cf-b__disco,
-.cf-b__filete {
-  opacity: 0;
-  animation: cf-aparece 700ms var(--ease-out) 2100ms forwards;
-}
-.cf-b__letra {
-  font-family: var(--font-display);
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: 50% 60%;
-  animation: cf-letra 900ms var(--ease-out) 2350ms forwards;
-}
-.cf-b__brillo { animation: cf-brillo 9000ms var(--ease-in-out) 3300ms infinite; }
-
-@keyframes cf-aro { to { stroke-dashoffset: 0; } }
-@keyframes cf-aparece { to { opacity: 1; } }
-@keyframes cf-letra {
-  from { opacity: 0; transform: scale(0.82) translateY(4px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes cf-brillo {
-  0% { transform: translateX(0); }
-  14%, 100% { transform: translateX(210px); }
-}
+/* Marca grabada: relieve sutil sobre el mismo esmalte, sin fondo ni aro. */
+.cf-marca { opacity: 0; animation: marca-grabada 900ms ease-out 650ms forwards; }
+@keyframes marca-grabada { to { opacity: 1; } }
