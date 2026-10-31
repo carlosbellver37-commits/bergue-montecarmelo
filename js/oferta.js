@@ -886,6 +886,7 @@ function colocarTexto() {
     const izquierda = foto.cx < marco.left + marco.width / 2;
     sobre.dataset.lado = izquierda ? "izquierda" : "derecha";
     sobre.style.setProperty("--zona-producto", `${Math.ceil((izquierda ? foto.right - marco.left : marco.right - foto.left) + 14)}px`);
+    sobre.style.setProperty("--alto-producto", `${Math.ceil(foto.bottom - foto.top + 12)}px`);
     sobre.style.width = `${marco.width}px`;
     sobre.style.left = "0px";
     sobre.style.top = `${y}px`;
