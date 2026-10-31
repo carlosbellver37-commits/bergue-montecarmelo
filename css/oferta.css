@@ -482,8 +482,8 @@ html.is-oferta-abierta { overflow-anchor: none; }
 }
 
 /* Decoración y marcos de las fichas: solo versión móvil. */
-.ficha__texto-movil, .ficha__escena, .ficha__marco { display: none; }
-.ficha__escena[hidden], .ficha__marco[hidden] { display: none; }
+.ficha__texto-movil, .ficha__marco { display: none; }
+.ficha__marco[hidden] { display: none; }
 @media (max-width: 860px) {
   .ficha__texto-escritorio { display: none; }
   .ficha__texto-movil { display: inline; }
@@ -507,9 +507,4 @@ html.is-oferta-abierta { overflow-anchor: none; }
   .ficha__panel > .ficha__carta { border-top: 0; padding-top: .5rem; }
   .ficha__marco { display: block; position: absolute; z-index: 1; pointer-events: none; overflow: visible; }
   .ficha__marco path { fill: none; stroke: var(--tinta-cartel); stroke-width: 1.15; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
-  .ficha__escena { display: flex; align-items: center; justify-content: center; position: absolute; z-index: 0; pointer-events: none; }
-  .ficha__escena img { width: 100%; height: 100%; object-fit: contain; filter: url(#marca-tinta); opacity: .88; }
-  .oferta[data-servicio="pan"] .ficha__escena img { transform: scaleX(-1); }
-  .oferta[data-servicio="temporada"] .ficha__escena img { transform: scale(.94); }
-  .oferta[data-servicio="gourmet"] .ficha__escena img { transform: scaleX(-1); }
 }
