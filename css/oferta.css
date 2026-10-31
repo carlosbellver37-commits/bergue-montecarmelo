@@ -508,3 +508,6 @@ html.is-oferta-abierta { overflow-anchor: none; }
   .ficha__marco { display: block; position: absolute; z-index: 1; pointer-events: none; overflow: visible; }
   .ficha__marco path { fill: none; stroke: var(--tinta-cartel); stroke-width: 1.15; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
 }
+
+/* Marco retirado a petición del cliente. */
+.ficha__marco { display: none !important; }
