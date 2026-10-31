@@ -39,94 +39,102 @@ const SERVICIOS = [
     "nombre": "Cafetería",
     "frase": "El café de siempre, como en casa",
     "lead": "El café de siempre, donde siempre. Por la mañana, desayunos con bollería del día y tostadas de nuestro pan; por la tarde, tortitas, gofres y chocolate con churros.",
-    "items": [
+    "grupos": [
       {
-        "n": "Café de Colombia de la casa",
-        "d": "Para acompañar"
+        "titulo": "Café y bebidas",
+        "items": [
+          {
+            "n": "Café de Colombia de la casa",
+            "d": "Café preparado al momento"
+          },
+          {
+            "n": "Infusiones",
+            "d": ""
+          },
+          {
+            "n": "Refrescos",
+            "d": ""
+          },
+          {
+            "n": "Vinos",
+            "d": "Para tomar en el local"
+          },
+          {
+            "n": "Cavas",
+            "d": "Para tomar en el local"
+          }
+        ]
       },
       {
-        "n": "Infusiones",
-        "d": "Para acompañar"
+        "titulo": "Tostadas",
+        "items": [
+          {
+            "n": "Tostada con aguacate",
+            "d": "Entera o media"
+          },
+          {
+            "n": "Tostada con atún",
+            "d": "Entera o media"
+          },
+          {
+            "n": "Tostada con aguacate y atún",
+            "d": "Entera o media"
+          },
+          {
+            "n": "Tostada con aguacate y jamón ibérico",
+            "d": "Entera o media"
+          }
+        ]
       },
       {
-        "n": "Refrescos",
-        "d": "Para acompañar"
+        "titulo": "Bocadillos",
+        "items": [
+          {
+            "n": "Bocadillo de tortilla de patatas",
+            "d": "En pan del obrador"
+          },
+          {
+            "n": "Bocadillo de bacon y queso",
+            "d": "En pan del obrador"
+          },
+          {
+            "n": "Bocadillo de jamón ibérico con aceite de oliva virgen",
+            "d": "En pan del obrador"
+          },
+          {
+            "n": "Bocadillo de jamón serrano con tomate",
+            "d": "En pan del obrador"
+          },
+          {
+            "n": "Bocadillo de atún con tomate",
+            "d": "En pan del obrador"
+          },
+          {
+            "n": "Bocadillo de jamón york y queso",
+            "d": "En pan del obrador"
+          }
+        ]
       },
       {
-        "n": "Vinos",
-        "d": "Para acompañar"
-      },
-      {
-        "n": "Cavas",
-        "d": "Para acompañar"
-      },
-      {
-        "n": "Tostada con aguacate",
-        "d": "Entera o media"
-      },
-      {
-        "n": "Tostada con atún",
-        "d": "Entera o media"
-      },
-      {
-        "n": "Tostada con aguacate y atún",
-        "d": "Entera o media"
-      },
-      {
-        "n": "Tostada con aguacate y jamón ibérico",
-        "d": "Entera o media"
-      },
-      {
-        "n": "Bocadillo de tortilla de patatas",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Bocadillo de bacon y queso",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Bocadillo de jamón ibérico con aceite de oliva virgen",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Bocadillo de jamón serrano con tomate",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Bocadillo de atún con tomate",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Bocadillo de jamón york y queso",
-        "d": "En pan del obrador"
-      },
-      {
-        "n": "Croissants",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Ensaimadas",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Napolitanas",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Bizcochos",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Tortitas con nata",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Gofres",
-        "d": "Para desayunar o merendar"
-      },
-      {
-        "n": "Chocolate con churros",
-        "d": "Para desayunar o merendar"
+        "titulo": "Desayunos y meriendas",
+        "items": [
+          {
+            "n": "Bollería del obrador",
+            "d": "Consulta el surtido en Pan y bollería"
+          },
+          {
+            "n": "Tortitas con nata",
+            "d": "Para desayunar o merendar"
+          },
+          {
+            "n": "Gofres",
+            "d": "Para desayunar o merendar"
+          },
+          {
+            "n": "Chocolate con churros",
+            "d": "Para desayunar o merendar"
+          }
+        ]
       }
     ]
   },
@@ -170,142 +178,140 @@ const SERVICIOS = [
     "nombre": "Pan y bollería",
     "frase": "Fermentación lenta, corteza que cruje",
     "lead": "Un buen pan necesita tiempo: amasado, fermentación lenta y reposo. Horneamos diecisiete panes varias veces cada mañana, y del mismo horno sale la bollería del día.",
-    "items": [
+    "grupos": [
       {
-        "n": "Chapata",
-        "d": "Miga alveolada y corteza fina, de larga fermentación."
+        "titulo": "Panes",
+        "items": [
+          {
+            "n": "Chapata",
+            "d": "Miga alveolada y corteza fina, de larga fermentación."
+          },
+          {
+            "n": "Baguette",
+            "d": "La clásica francesa: crujiente por fuera, tierna por dentro."
+          },
+          {
+            "n": "Pistola",
+            "d": "La barra de siempre, la de la mesa de cada día."
+          },
+          {
+            "n": "Barra gallega",
+            "d": "Corteza gruesa y miga húmeda, como el pan gallego, en barra."
+          },
+          {
+            "n": "Barra integral",
+            "d": "Harina integral para una barra con más fibra y sabor a cereal."
+          },
+          {
+            "n": "Pan de pueblo",
+            "d": "Corteza dura y miga prieta, como el de los hornos de antes."
+          },
+          {
+            "n": "Pan de cereales",
+            "d": "Semillas y harinas variadas para un pan con carácter."
+          },
+          {
+            "n": "Pan de trigo sarraceno",
+            "d": "Harina de alforfón, de sabor tostado y ligeramente terroso."
+          },
+          {
+            "n": "Pan con aceitunas",
+            "d": "Con aceitunas en la masa, ideal para el aperitivo."
+          },
+          {
+            "n": "Pan de pasas y nueces",
+            "d": "Dulzor natural de la fruta y el crujido de la nuez."
+          },
+          {
+            "n": "Pan de espelta",
+            "d": "Cereal antiguo, aromático y fácil de digerir."
+          },
+          {
+            "n": "Hogaza de maíz e higo",
+            "d": "Una hogaza dorada con un punto dulce y afrutado."
+          },
+          {
+            "n": "Bogavante",
+            "d": "Pan rústico de cuatro picos, de fermentación natural."
+          },
+          {
+            "n": "Bretón",
+            "d": "Pan rústico de miga aireada y corteza crujiente."
+          },
+          {
+            "n": "Pan rústico",
+            "d": "Forma irregular, harina por encima y mucho sabor."
+          },
+          {
+            "n": "Colón chato",
+            "d": "Pieza tradicional de miga compacta y corteza lisa."
+          },
+          {
+            "n": "Pan de picos",
+            "d": "Corteza en puntas, la más crujiente de la casa."
+          }
+        ]
       },
       {
-        "n": "Baguette",
-        "d": "La clásica francesa: crujiente por fuera, tierna por dentro."
+        "titulo": "Bollería del día",
+        "items": [
+          {
+            "n": "Bizcochos artesanos"
+          },
+          {
+            "n": "Croissants"
+          },
+          {
+            "n": "Ensaimadas"
+          },
+          {
+            "n": "Napolitanas"
+          },
+          {
+            "n": "Sneken"
+          },
+          {
+            "n": "Palmeras"
+          },
+          {
+            "n": "Bayonesas"
+          },
+          {
+            "n": "Donuts"
+          }
+        ]
       },
       {
-        "n": "Pistola",
-        "d": "La barra de siempre, la de la mesa de cada día."
-      },
-      {
-        "n": "Barra gallega",
-        "d": "Corteza gruesa y miga húmeda, como el pan gallego, en barra."
-      },
-      {
-        "n": "Barra integral",
-        "d": "Harina integral para una barra con más fibra y sabor a cereal."
-      },
-      {
-        "n": "Pan de pueblo",
-        "d": "Corteza dura y miga prieta, como el de los hornos de antes."
-      },
-      {
-        "n": "Pan de cereales",
-        "d": "Semillas y harinas variadas para un pan con carácter."
-      },
-      {
-        "n": "Pan de trigo sarraceno",
-        "d": "Harina de alforfón, de sabor tostado y ligeramente terroso."
-      },
-      {
-        "n": "Pan con aceitunas",
-        "d": "Con aceitunas en la masa, ideal para el aperitivo."
-      },
-      {
-        "n": "Pan de pasas y nueces",
-        "d": "Dulzor natural de la fruta y el crujido de la nuez."
-      },
-      {
-        "n": "Pan de espelta",
-        "d": "Cereal antiguo, aromático y fácil de digerir."
-      },
-      {
-        "n": "Hogaza de maíz e higo",
-        "d": "Una hogaza dorada con un punto dulce y afrutado."
-      },
-      {
-        "n": "Bogavante",
-        "d": "Pan rústico de cuatro picos, de fermentación natural."
-      },
-      {
-        "n": "Bretón",
-        "d": "Pan rústico de miga aireada y corteza crujiente."
-      },
-      {
-        "n": "Pan rústico",
-        "d": "Forma irregular, harina por encima y mucho sabor."
-      },
-      {
-        "n": "Colón chato",
-        "d": "Pieza tradicional de miga compacta y corteza lisa."
-      },
-      {
-        "n": "Pan de picos",
-        "d": "Corteza en puntas, la más crujiente de la casa."
-      },
-      {
-        "n": "Bizcochos artesanos",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Croissants",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Ensaimadas",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Napolitanas",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Sneken",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Palmeras",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Bayonesas",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Donuts",
-        "d": "Bollería del día"
-      },
-      {
-        "n": "Palmerita de Chocolate Dubái",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Lotus",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Kinder",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Oreo",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Ferrero",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Pistacho",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Choco fondant",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Chocolate blanco con frambuesa",
-        "d": "Palmeritas jugositas"
-      },
-      {
-        "n": "Palmerita de Limón",
-        "d": "Palmeritas jugositas"
+        "titulo": "Palmeritas jugositas",
+        "items": [
+          {
+            "n": "Chocolate Dubái"
+          },
+          {
+            "n": "Lotus"
+          },
+          {
+            "n": "Kinder"
+          },
+          {
+            "n": "Oreo"
+          },
+          {
+            "n": "Ferrero"
+          },
+          {
+            "n": "Pistacho"
+          },
+          {
+            "n": "Choco fondant"
+          },
+          {
+            "n": "Chocolate blanco con frambuesa"
+          },
+          {
+            "n": "Limón"
+          }
+        ]
       }
     ]
   },
@@ -358,46 +364,61 @@ const SERVICIOS = [
     "nombre": "Heladería",
     "frase": "Para cuando aprieta el calor",
     "lead": "Helado en cucurucho o en copa, granizados, batidos y frappelatte. Para tomar en la terraza o para llevar de paseo. Pregunta por los sabores del día.",
-    "items": [
+    "grupos": [
       {
-        "n": "Copa Ibiza",
-        "d": "Montada al momento"
+        "titulo": "Helados y copas",
+        "items": [
+          {
+            "n": "Copa Ibiza",
+            "d": "Montada al momento"
+          },
+          {
+            "n": "Copa Alicante",
+            "d": "Montada al momento"
+          },
+          {
+            "n": "Copa Fantasía",
+            "d": "Montada al momento"
+          },
+          {
+            "n": "Cucuruchos",
+            "d": "Para llevar de paseo"
+          }
+        ]
       },
       {
-        "n": "Copa Alicante",
-        "d": "Montada al momento"
+        "titulo": "Fresco y ligero",
+        "items": [
+          {
+            "n": "Granizados",
+            "d": "Frescos y de temporada"
+          },
+          {
+            "n": "Sorbetes",
+            "d": "Ligeros, de fruta"
+          },
+          {
+            "n": "Smoothies",
+            "d": "De fruta"
+          },
+          {
+            "n": "Yogur helado",
+            "d": "Para tomar o llevar"
+          }
+        ]
       },
       {
-        "n": "Copa Fantasía",
-        "d": "Montada al momento"
-      },
-      {
-        "n": "Cucuruchos",
-        "d": "Para llevar de paseo"
-      },
-      {
-        "n": "Granizados",
-        "d": "Frescos y de temporada"
-      },
-      {
-        "n": "Batidos",
-        "d": "Para tomar o llevar"
-      },
-      {
-        "n": "Sorbetes",
-        "d": "Ligeros, de fruta"
-      },
-      {
-        "n": "Smoothies",
-        "d": "De fruta"
-      },
-      {
-        "n": "Yogur helado",
-        "d": "Para tomar o llevar"
-      },
-      {
-        "n": "Frappelatte",
-        "d": "Para el verano"
+        "titulo": "Batidos y café frío",
+        "items": [
+          {
+            "n": "Batidos",
+            "d": "Para tomar o llevar"
+          },
+          {
+            "n": "Frappelatte",
+            "d": "Para el verano"
+          }
+        ]
       }
     ]
   },
@@ -406,54 +427,58 @@ const SERVICIOS = [
     "nombre": "Gourmet",
     "frase": "Lo bueno, también para llevar",
     "lead": "Nuestra despensa, elegida con el mismo cuidado que el obrador. Si buscas algo que no tenemos, pídenoslo e intentaremos conseguirlo.",
-    "items": [
+    "grupos": [
       {
-        "n": "Vinos y cavas",
-        "d": "Para una comida o para regalar"
+        "titulo": "Bodega",
+        "items": [
+          {
+            "n": "Vinos y cavas",
+            "d": "Botellas para llevar o regalar"
+          }
+        ]
       },
       {
-        "n": "Foie",
-        "d": "De la despensa"
+        "titulo": "Despensa",
+        "items": [
+          {
+            "n": "Foie"
+          },
+          {
+            "n": "Quesos"
+          },
+          {
+            "n": "Embutidos ibéricos"
+          },
+          {
+            "n": "Conservas"
+          }
+        ]
       },
       {
-        "n": "Quesos",
-        "d": "De la despensa"
+        "titulo": "Mermeladas y miel",
+        "items": [
+          {
+            "n": "Mermeladas Sabores del Guijo",
+            "d": "Artesanas, de Extremadura"
+          },
+          {
+            "n": "Miel La Virgen de Extremadura",
+            "d": "100 % pura. Azahar, Romero, Tomillo, Mil flores, Eucalipto, Sierra de Guadalupe, Brezo, Castaño, Encina, Roble"
+          }
+        ]
       },
       {
-        "n": "Embutidos ibéricos",
-        "d": "De la despensa"
-      },
-      {
-        "n": "Conservas",
-        "d": "De la despensa"
-      },
-      {
-        "n": "Mermeladas Sabores del Guijo",
-        "d": "Artesanas, de Extremadura"
-      },
-      {
-        "n": "Miel La Virgen de Extremadura",
-        "d": "100 % pura, diez variedades"
-      },
-      {
-        "n": "Café",
-        "d": "Consulta las variedades disponibles en tienda"
-      },
-      {
-        "n": "Bombones",
-        "d": "Para regalar"
-      },
-      {
-        "n": "Bajo pedido",
-        "d": "Te buscamos lo que necesites"
-      },
-      {
-        "n": "Cafés de origen",
-        "d": "Colombia, Kenia y Guatemala"
-      },
-      {
-        "n": "Variedades de miel",
-        "d": "Azahar, Romero, Tomillo, Mil flores, Eucalipto, Sierra de Guadalupe, Brezo, Castaño, Encina, Roble"
+        "titulo": "Café y chocolate",
+        "items": [
+          {
+            "n": "Cafés de origen",
+            "d": "Colombia, Kenia y Guatemala. Para preparar en casa."
+          },
+          {
+            "n": "Bombones",
+            "d": "Para regalar o compartir"
+          }
+        ]
       }
     ]
   },
@@ -463,42 +488,48 @@ const SERVICIOS = [
     "frase": "Para empezar con buen sabor",
     "lead": "Medias noches, sándwiches, empanadas de hojaldre y quiches de nuestro obrador. Para tomar en el momento o encargar una bandeja para tus celebraciones y reuniones.",
     "encargo": true,
-    "items": [
+    "grupos": [
       {
-        "n": "Medias noches rellenas",
-        "d": "Para tomar o encargar"
+        "titulo": "Pequeños bocados",
+        "items": [
+          {
+            "n": "Medias noches rellenas"
+          },
+          {
+            "n": "Sándwiches"
+          },
+          {
+            "n": "Petit pain"
+          }
+        ]
       },
       {
-        "n": "Sándwiches",
-        "d": "Para tomar o encargar"
+        "titulo": "Empanadas y empanadillas",
+        "items": [
+          {
+            "n": "Empanadillas"
+          },
+          {
+            "n": "Empanada de hojaldre de atún"
+          },
+          {
+            "n": "Empanada de hojaldre de ternera"
+          }
+        ]
       },
       {
-        "n": "Agujas de ternera",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Empanadillas",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Pastel de queso",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Empanada de hojaldre de atún",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Empanada de hojaldre de ternera",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Quiches variados",
-        "d": "Para tomar o encargar"
-      },
-      {
-        "n": "Petit pain",
-        "d": "Para tomar o encargar"
+        "titulo": "Hojaldres y quiches",
+        "items": [
+          {
+            "n": "Agujas de ternera"
+          },
+          {
+            "n": "Pastel de queso"
+          },
+          {
+            "n": "Quiches variados"
+          }
+        ]
       }
     ]
   }
@@ -559,7 +590,7 @@ const botones = SERVICIOS.map((s, i) => {
   b.className = "vitrina__item";
   b.id = `vitrina-${s.id}`;
   b.setAttribute("aria-pressed", "false");
-  b.style.setProperty("--c", (i % COLUMNAS) + 1);
+  b.style.setProperty("--c", s.id === "salados" ? 2 : (i % COLUMNAS) + 1);
   b.style.setProperty("--r", Math.floor(i / COLUMNAS) + 1);
   b.innerHTML = `<span class="vitrina__num">${dos(i + 1)}.</span>
       <span class="vitrina__foto"><img src="${IMG}/${s.id === 'salados' ? 'sandwich-480.png' : s.id + '-480.webp'}" srcset="${IMG}/${s.id === 'salados' ? 'sandwich-480.png' : s.id + '-480.webp'} 1x, ${IMG}/${s.id === 'salados' ? 'sandwich-900.png' : s.id + '-900.webp'} 2x" alt="" loading="lazy" /></span>
@@ -654,21 +685,23 @@ function htmlCatalogos(s) {
 
 function htmlCarta(i) {
   const s = SERVICIOS[i];
-  const items = s.items.map((p, j) => `<li>
-      <span class="carta-lista__num">${dos(j + 1)}.</span>
-      <span class="carta-lista__nombre">${escapar(p.n)}</span>
-      <span class="carta-lista__lado">${p.lado ? escapar(p.lado) : ""}</span>
-      ${p.d ? `<span class="carta-lista__desc">${escapar(p.d)}</span>` : ""}
-    </li>`).join("");
-  return `${htmlCatalogos(s)}<p class="ficha__etiqueta">${s.catalogos ? "Nuestro obrador" : "La carta"}</p>
-    <ol class="carta-lista">${items}</ol>
-    <p class="ficha__nota">Precios y disponibilidad en tienda.</p>`;
+  const grupos = s.grupos || [{ titulo: '', items: s.items }];
+  let numero = 0;
+  const contenido = grupos.map(g => {
+    const inicio = numero + 1;
+    const items = g.items.map(p => {
+      numero++;
+      return `<li><span class="carta-lista__num">${dos(numero)}.</span><span class="carta-lista__nombre">${escapar(p.n)}</span><span class="carta-lista__lado">${p.lado ? escapar(p.lado) : ''}</span>${p.d ? `<span class="carta-lista__desc">${escapar(p.d)}</span>` : ''}</li>`;
+    }).join('');
+    return `<section class="carta-grupo">${g.titulo ? `<h4 class="carta-grupo__titulo">${escapar(g.titulo)}</h4>` : ''}<ol class="carta-lista" start="${inicio}">${items}</ol></section>`;
+  }).join('');
+  return `${htmlCatalogos(s)}<p class="ficha__etiqueta">${s.catalogos ? 'Nuestro obrador' : 'La carta'}</p>${contenido}<p class="ficha__nota">Precios y disponibilidad en tienda.</p>`;
 }
 
 // Piezas que entran y salen escalonadas
 const partes = () => [
   ...sobre.querySelectorAll(".ficha__cab > *, .ficha__cuerpo > *"),
-  ...carta.querySelectorAll(".ficha__catalogos, .ficha__etiqueta, .carta-lista > li, .ficha__nota"),
+  ...carta.querySelectorAll(".ficha__catalogos, .ficha__etiqueta, .carta-grupo__titulo, .carta-lista > li, .ficha__nota"),
 ];
 
 const entrar = (els, retraso) => els.forEach((el, j) => el.animate(
@@ -699,7 +732,7 @@ async function abrir(i) {
   botones.forEach((b) => b.querySelector("img").removeAttribute("style"));
   fotoElegida.style.transition = "none";
   fotoElegida.style.transform = transformacion;
-  const c = (i % COLUMNAS) + 1;
+  const c = SERVICIOS[i].id === "salados" ? 2 : (i % COLUMNAS) + 1;
   const r = Math.floor(i / COLUMNAS) + 1;
   vitrina.dataset.pos = `r${r}c${c}`;
   sobre.innerHTML = htmlSobre(i);

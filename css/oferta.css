@@ -527,3 +527,10 @@ html.is-oferta-abierta { overflow-anchor: none; }
 .ficha__catalogo-tipo {font-family:var(--font-condensada);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;}
 @media(max-width:440px){.ficha__catalogos{gap:.8rem}.ficha__catalogos button{font-size:.9rem}.ficha__catalogo-tipo{font-size:.65rem}}
 @media(prefers-reduced-motion:reduce){.catalogo__hojas img{transition:none}.visor[open]{animation:none}}
+
+/* Subcategorías discretas para recorrer mejor cada carta. */
+.carta-grupo {margin-top:1.6rem;break-inside:avoid-column;}
+.carta-grupo__titulo {margin:0 0 .65rem;padding-top:.8rem;border-top:1px solid currentColor;font-family:var(--font-condensada);font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;}
+@media(max-width:860px){.vitrina #vitrina-salados{grid-column:1 / -1;width:calc((100% - var(--hueco-h))/2);justify-self:center;}}
+
+#vitrina-salados .vitrina__num {justify-self:center;}
