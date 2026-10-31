@@ -460,8 +460,8 @@ function cajaProducto(img) {
 
 function colocarReclamoMovil(marco, foto) {
   const seccion = raiz.getBoundingClientRect();
-  const nav = document.querySelector(".cabecera").getBoundingClientRect();
-  const inicio = Math.max(seccion.top + 28, nav.bottom + 24);
+  // Coordenadas del documento: el scroll y las barras de Safari no recolocan la frase.
+  const inicio = seccion.top + 28;
   const hueco = foto.top - inicio - 40;
   reclamo.hidden = hueco < 100;
   if (reclamo.hidden) return;
@@ -632,7 +632,14 @@ function actualizarEncuadre() {
     else medirCelda();
   });
 }
-window.addEventListener("resize", actualizarEncuadre);
+let anchoEncuadre = window.innerWidth;
+window.addEventListener("resize", () => {
+  const ancho = window.innerWidth;
+  // En móvil, un cambio de alto suele ser la barra del navegador, no un nuevo diseño.
+  if (estrecha.matches && Math.abs(ancho - anchoEncuadre) < 1) return;
+  anchoEncuadre = ancho;
+  actualizarEncuadre();
+}, { passive: true });
 // Tras abrir, la composición queda unida al producto y se desplaza con él.
 // Hacer scroll no vuelve a enviar los textos a otros huecos de la pantalla.
 botones.forEach((b) => b.querySelector("img").addEventListener("load", actualizarEncuadre));
