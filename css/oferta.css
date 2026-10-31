@@ -482,8 +482,6 @@ html.is-oferta-abierta { overflow-anchor: none; }
 }
 
 /* Decoración y marcos de las fichas: solo versión móvil. */
-.ficha__texto-movil, .ficha__marco { display: none; }
-.ficha__marco[hidden] { display: none; }
 @media (max-width: 860px) {
   .ficha__texto-escritorio { display: none; }
   .ficha__texto-movil { display: inline; }
@@ -505,9 +503,15 @@ html.is-oferta-abierta { overflow-anchor: none; }
   .ficha__panel .ficha__pasos .ficha__paso { text-align: left; padding-block: .65rem; font-size: .75rem; letter-spacing: .09em; }
   .ficha__panel .ficha__pasos .ficha__paso:last-child { text-align: right; }
   .ficha__panel > .ficha__carta { border-top: 0; padding-top: .5rem; }
-  .ficha__marco { display: block; position: absolute; z-index: 1; pointer-events: none; overflow: visible; }
-  .ficha__marco path { fill: none; stroke: var(--tinta-cartel); stroke-width: 1.15; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; }
 }
 
-/* Marco retirado a petición del cliente. */
-.ficha__marco { display: none !important; }
+
+.ficha__texto-movil { display: none; }
+.ficha__reclamo, .ficha__reclamo[hidden] { display: none; }
+@media (max-width: 860px) {
+  .ficha__texto-movil { display: inline; }
+  .ficha__reclamo:not([hidden]) { display: flex; }
+  .ficha__reclamo { position: absolute; z-index: 0; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; margin: 0; padding: .5rem .8rem; text-align: center; pointer-events: none; color: var(--tinta-cartel); }
+  .ficha__reclamo-texto { max-width: 22ch; font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: var(--tamano-reclamo, 1.8rem); line-height: 1.15; letter-spacing: -.025em; text-wrap: balance; }
+  .ficha__reclamo-etiqueta { font-family: var(--font-condensada); font-size: .64rem; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; opacity: .7; }
+}
