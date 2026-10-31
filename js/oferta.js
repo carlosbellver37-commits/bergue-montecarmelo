@@ -13,6 +13,24 @@ const ENTRADA_MS = 650;
 const ESCALONADO_MS = 26;
 const RETRASO_ENTRADA_MS = 300;   // espera a que los demás productos se hayan desvanecido
 
+const TEXTOS_MOVIL = {
+  cafeteria: "Desayunos con bollería del día y tostadas de nuestro pan. Por la tarde, tortitas, gofres y chocolate con churros.",
+  pasteleria: "Tartas, pasteles y dulces de elaboración tradicional. Bizcochos del día, nata de obrador y fruta fresca. Tu tarta puede llevar una dedicatoria.",
+  pan: "Amasado, fermentación lenta y reposo. Horneamos diecisiete panes varias veces cada mañana, junto a la bollería del día.",
+  temporada: "Dulces que siguen el calendario de Madrid. Los preparamos unas semanas al año; encárgalos con tiempo.",
+  heladeria: "Cucuruchos, copas, granizados, batidos y frappelatte. Disfrútalos en la terraza o de paseo. Consulta los sabores del día.",
+  gourmet: "Una despensa elegida con el mismo cuidado que el obrador. Si buscas algo que no tenemos, pídelo e intentaremos conseguirlo.",
+};
+
+const ESCENAS_MOVIL = {
+  cafeteria: "assets/ilustraciones/cafe.png",
+  pasteleria: "assets/branding/bergue-panadero.png",
+  pan: "assets/branding/bergue-panadero.png",
+  temporada: "assets/ilustraciones/dulces.png",
+  heladeria: "assets/ilustraciones/dulces.png",
+  gourmet: "assets/ilustraciones/cafe.png",
+};
+
 const SERVICIOS = [
   {
     id: "cafeteria",
@@ -210,6 +228,24 @@ panel.className = "ficha__panel";
 panel.hidden = true;
 panel.append(sobre, carta);
 vitrina.append(panel);
+const marcoFicha = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+marcoFicha.classList.add("ficha__marco");
+marcoFicha.setAttribute("aria-hidden", "true");
+marcoFicha.setAttribute("focusable", "false");
+marcoFicha.setAttribute("hidden", "");
+const trazoFicha = document.createElementNS("http://www.w3.org/2000/svg", "path");
+trazoFicha.setAttribute("pathLength", "1");
+marcoFicha.append(trazoFicha);
+vitrina.append(marcoFicha);
+const escena = document.createElement("div");
+escena.className = "ficha__escena";
+escena.setAttribute("aria-hidden", "true");
+escena.hidden = true;
+const imagenEscena = document.createElement("img");
+imagenEscena.alt = "";
+imagenEscena.decoding = "async";
+escena.append(imagenEscena);
+raiz.append(escena);
 // El contenido absoluto también reserva espacio de página: nunca invade Conócenos.
 const reserva = document.createElement("div");
 reserva.className = "oferta__reserva";
@@ -230,7 +266,7 @@ function htmlSobre(i) {
       <p class="ficha__etiqueta"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button><span>${dos(i + 1)} · El mostrador</span></p>
     </div>
     <div class="ficha__cuerpo">
-      <p class="ficha__lead">${escapar(s.lead)}</p>
+      <p class="ficha__lead"><span class="ficha__texto-escritorio">${escapar(s.lead)}</span><span class="ficha__texto-movil">${escapar(TEXTOS_MOVIL[s.id])}</span></p>
       <div class="ficha__volver-movil"><button type="button" class="ficha__todos" data-todos aria-label="Volver a todos los servicios"><span aria-hidden="true">←</span> Todos</button></div>
       <div class="ficha__acciones">
         ${s.encargo ? `<a class="ficha__encargo" href="#encargos">Hacer un encargo →</a>` : ""}
@@ -305,6 +341,7 @@ async function abrir(i) {
   raiz.classList.add("is-detalle");
   raiz.querySelector(".oferta__cabeza").setAttribute("aria-hidden", "true");
   abierto = i;
+  raiz.dataset.servicio = SERVICIOS[i].id;
   botones.forEach((b) => b.querySelector("img").removeAttribute("style"));
   fotoElegida.style.transition = "none";
   fotoElegida.style.transform = transformacion;
@@ -337,6 +374,10 @@ async function cerrar() {
   if (id !== cambio) return;
   const anterior = abierto;
   abierto = -1;
+  escena.hidden = true;
+  marcoFicha.setAttribute("hidden", "");
+  delete marcoFicha.dataset.servicio;
+  delete raiz.dataset.servicio;
   sobre.hidden = true;
   carta.hidden = true;
   delete vitrina.dataset.pos;
@@ -427,6 +468,51 @@ function cajaProducto(img) {
   };
 }
 
+function dibujarMarcoMovil(ancho, alto, variante) {
+  const x = ancho - 2;
+  const y = alto - 2;
+  const trazos = [
+    `M${x - 20} 10H10V${y}H${x}V${alto * .42}`,
+    `M10 ${alto * .32}V${y}H${x}V10H${ancho * .35}`,
+    `M${ancho * .7} ${y}H10V10H${x}V${alto * .7}`,
+    `M10 ${alto * .7}V10H${x}V${y}H${ancho * .45}`,
+    `M${x} ${alto * .35}V${y}H10V10H${ancho * .6}`,
+    `M${ancho * .3} 10H${x}V${y}H10V${alto * .48}`,
+  ];
+  return trazos[variante % trazos.length];
+}
+
+function decorarFichaMovil(marco, foto, y, fondo) {
+  const ancho = marco.width + 32;
+  const alto = fondo - y + 40;
+  marcoFicha.removeAttribute("hidden");
+  marcoFicha.style.left = "-16px";
+  marcoFicha.style.top = `${y - 20}px`;
+  marcoFicha.style.width = `${ancho}px`;
+  marcoFicha.style.height = `${alto}px`;
+  marcoFicha.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+  trazoFicha.setAttribute("d", dibujarMarcoMovil(ancho, alto, abierto));
+  const servicio = SERVICIOS[abierto].id;
+  if (marcoFicha.dataset.servicio !== servicio) {
+    trazoFicha.getAnimations().forEach(animacion => animacion.cancel());
+    trazoFicha.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 1000, easing: "ease-out", fill: "both" });
+    marcoFicha.dataset.servicio = servicio;
+  }
+  const seccion = raiz.getBoundingClientRect();
+  const nav = document.querySelector(".cabecera").getBoundingClientRect();
+  const inicio = Math.max(seccion.top + 24, nav.bottom + 24);
+  const hueco = foto.top - inicio - 36;
+  escena.hidden = hueco < 100;
+  if (!escena.hidden) {
+    const altura = Math.min(hueco, 240, marco.width * .72);
+    escena.style.top = `${inicio + (hueco - altura) / 2 - seccion.top}px`;
+    escena.style.left = `${marco.left - seccion.left}px`;
+    escena.style.width = `${marco.width}px`;
+    escena.style.height = `${altura}px`;
+    if (imagenEscena.getAttribute("src") !== ESCENAS_MOVIL[servicio]) imagenEscena.src = ESCENAS_MOVIL[servicio];
+  }
+}
+
 function colocarTexto() {
   if (abierto < 0) return;
   const marco = vitrina.getBoundingClientRect();
@@ -440,10 +526,8 @@ function colocarTexto() {
     }
     const y = Math.max(0, foto.top - marco.top);
     const izquierda = foto.cx < marco.left + marco.width / 2;
-    const hueco = sobre.querySelector(".ficha__hueco-movil");
-    hueco.style.cssFloat = izquierda ? "left" : "right";
-    hueco.style.width = `${(izquierda ? foto.right - marco.left : marco.right - foto.left) + 14}px`;
-    hueco.style.height = `${foto.bottom - marco.top - y + 14}px`;
+    sobre.dataset.lado = izquierda ? "izquierda" : "derecha";
+    sobre.style.setProperty("--zona-producto", `${Math.ceil((izquierda ? foto.right - marco.left : marco.right - foto.left) + 14)}px`);
     sobre.style.width = `${marco.width}px`;
     sobre.style.left = "0px";
     sobre.style.top = `${y}px`;
@@ -451,9 +535,12 @@ function colocarTexto() {
     carta.style.left = "0px";
     const yCarta = y + sobre.offsetHeight + 28;
     carta.style.top = `${yCarta}px`;
+    decorarFichaMovil(marco, foto, y, yCarta + carta.offsetHeight);
     reserva.style.height = `${Math.max(0, Math.ceil(yCarta + carta.offsetHeight + 48 - marco.height))}px`;
     return;
   }
+  escena.hidden = true;
+  marcoFicha.setAttribute("hidden", "");
   const nav = document.querySelector(".cabecera").getBoundingClientRect();
   const margen = limitar(marco.width * 0.035, 20, 40);
   const arriba = Math.max(nav.bottom + 24, raiz.getBoundingClientRect().top + 48);

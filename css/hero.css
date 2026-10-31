@@ -376,3 +376,10 @@
     bottom: 0.7rem;
   }
 }
+
+/* La sede tiene su propia línea: nunca invade la cola de la g. */
+@media (max-width: 680px) {
+  .hero__titulo { display: flex; flex-direction: column; gap: .08em; padding-bottom: .14em; }
+  .hero__marca { display: block; line-height: 1.08; }
+  .hero__sede { position: static; align-self: flex-end; right: auto; bottom: auto; margin: 0 .1em .15em 0; font-size: .205em; line-height: 1.2; }
+}
