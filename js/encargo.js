@@ -29,7 +29,37 @@ if (form) {
     marcar(validar(leer()).errores);
   }));
 
-  // Al pulsar un producto de la carta: se rellena el encargo y se baja a él
+  // Panel de reserva: al pulsar un producto de la carta, el mismo formulario se abre en una ventana
+  const panel = document.querySelector("[data-reserva]");
+  const hueco = panel && panel.querySelector("[data-reserva-hueco]");
+  const producto = panel && panel.querySelector("[data-reserva-producto]");
+  const origen = document.createComment("formulario de encargo");
+  let lanzador = null;
+
+  function abrirPanel(texto) {
+    form.before(origen);
+    hueco.append(form);
+    form.classList.add("is-visible");
+    producto.textContent = texto ? "Tu encargo: " + texto.replace(/\.?\s*Cantidad:\s*$/, "") : "";
+    if (!panel.open) panel.showModal();
+  }
+
+  function cerrarPanel() {
+    if (panel.open) panel.close();
+  }
+
+  if (panel) {
+    panel.addEventListener("close", () => {
+      if (origen.parentNode) origen.replaceWith(form);   // el formulario vuelve a su sitio
+      if (lanzador && lanzador.isConnected) lanzador.focus({ preventScroll: true });
+    });
+    // Escape cierra solo el panel, no el mostrador de la carta que hay detrás
+    panel.addEventListener("keydown", (e) => { if (e.key === "Escape") e.stopPropagation(); });
+    panel.querySelector("[data-reserva-cerrar]").addEventListener("click", cerrarPanel);
+    // Clic fuera de la ventana: se cierra
+    panel.addEventListener("click", (e) => { if (e.target === panel) cerrarPanel(); });
+  }
+
   window.addEventListener("bergue:encargar", (evento) => {
     const { tipo, texto } = evento.detail || {};
     const tipoCampo = form.elements.tipo;
@@ -40,12 +70,12 @@ if (form) {
     const detalle = form.elements.detalle;
     detalle.value = texto || "";
     marcar({});
-    const seccion = document.getElementById("encargos");
-    if (seccion) seccion.scrollIntoView({ behavior: "smooth", block: "start" });
-    setTimeout(() => {
-      detalle.focus({ preventScroll: true });
-      detalle.setSelectionRange(detalle.value.length, detalle.value.length);
-    }, 600);
+    estado.textContent = "";
+    if (!panel) return;
+    lanzador = document.activeElement;
+    abrirPanel(texto);
+    detalle.focus({ preventScroll: true });
+    detalle.setSelectionRange(detalle.value.length, detalle.value.length);
   });
 
   form.addEventListener("submit", (evento) => {

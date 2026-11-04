@@ -158,3 +158,20 @@
   mask: url("../assets/img/logo-antiguo.png") center / contain no-repeat;
   opacity: 0.92;
 }
+
+/* Enlaces legales del pie */
+.pie__avisos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.6rem;
+  padding: 1.5rem var(--gutter) 0;
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pie__avisos a { color: inherit; opacity: 0.85; text-underline-offset: 4px; }
+.pie__avisos a:hover, .pie__avisos a:focus-visible { opacity: 1; text-decoration: underline; }

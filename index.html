@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="css/hero-cafetera.css?v=4" />
   <link rel="stylesheet" href="css/oferta.css?v=57" />
   <link rel="stylesheet" href="css/conocenos.css?v=37" />
-  <link rel="stylesheet" href="css/pie.css?v=38" />
-  <link rel="stylesheet" href="css/encargo.css?v=40" />
+  <link rel="stylesheet" href="css/pie.css?v=39" />
+  <link rel="stylesheet" href="css/encargo.css?v=41" />
   <link rel="stylesheet" href="css/catalogos.css?v=1" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_ES" />
@@ -287,7 +287,7 @@
             </a>
           </div>
           <p class="pedido__estado" data-estado role="status" aria-live="polite"></p>
-          <!-- PENDIENTE: texto de privacidad (RGPD) del cliente: qué datos se recogen y para qué -->
+          <p class="pedido__privacidad">Usamos tus datos solo para gestionar este encargo. Más información en nuestra <a href="/privacidad/">política de privacidad</a>.</p>
         </form>
       </section>
     </main>
@@ -330,8 +330,12 @@
       </nav>
     </div>
 
-    <!-- PENDIENTE: razón social y CIF de la tienda de Montecarmelo (otros titulares que Las Tablas) -->
-    <p class="pie__legal">© 2026 Bergue Montecarmelo</p>
+    <nav class="pie__avisos" aria-label="Información legal">
+      <a href="/aviso-legal/">Aviso legal</a>
+      <a href="/privacidad/">Privacidad</a>
+      <a href="/cookies/">Cookies</a>
+    </nav>
+    <p class="pie__legal">© 2026 BERGUE E HIJOS S.L. / BERGUE &amp; FAMILY S.L. · CIF B-86452182</p>
     <div class="pie__firma"><span class="pie__logo" role="img" aria-label="Bergue"></span></div>
   </footer>
 
@@ -339,7 +343,13 @@
   <script type="module" src="js/pagina.js?v=37"></script>
   <script type="module" src="js/oferta.js?v=57"></script>
   <script type="module" src="js/conocenos.js?v=37"></script>
-  <script type="module" src="js/encargo.js?v=40"></script>
+  <script type="module" src="js/encargo.js?v=41"></script>
+<dialog class="reserva" aria-labelledby="pedido-titulo" data-reserva data-lenis-prevent>
+  <button type="button" class="reserva__cerrar" aria-label="Cerrar" data-reserva-cerrar>×</button>
+  <p class="reserva__producto" data-reserva-producto></p>
+  <div data-reserva-hueco></div>
+</dialog>
+
 <dialog class="visor" aria-labelledby="visor-titulo" data-visor data-lenis-prevent>
   <header class="visor__cabeza">
     <h4 class="visor__titulo" id="visor-titulo" data-visor-titulo></h4>
