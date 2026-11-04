@@ -3,12 +3,18 @@
    casilla y su texto y su carta se colocan en las casillas libres, según dónde esté.
    Tipografía según la escala de base.css --- */
 
+html.is-oferta-abierta { overflow-anchor: none; }
+
 .oferta {
   --tinta-cartel: #5a1f22;
   padding: var(--espacio-seccion) var(--gutter);
   border-top: 1px solid var(--linea);
   background: var(--papel);
   color: var(--tinta-cartel);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  overflow-anchor: none;
 }
 
 .oferta > * {
@@ -38,7 +44,10 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   align-items: start;
   gap: 2rem clamp(2rem, 6vw, 6rem);
+  transition: opacity 240ms ease;
 }
+
+.oferta.is-detalle .oferta__cabeza { opacity: 0; pointer-events: none; }
 
 .oferta__titulo {
   font-family: var(--font-display);
@@ -152,16 +161,17 @@
 /* Abierta: los demás productos se desvanecen; el elegido no se mueve */
 .vitrina.is-abierta .vitrina__item:not(.is-elegido) {
   opacity: 0;
-  transform: scale(0.9);
   filter: blur(6px);
   pointer-events: none;
 }
 
 .vitrina__item.is-elegido .vitrina__num {
-  padding-inline: 0.6rem;
-  background: var(--tinta-cartel);
-  color: var(--papel);
+  opacity: 0;
 }
+
+.vitrina__item.is-elegido { position: relative; z-index: 2; }
+.vitrina__item.is-elegido:focus-visible { outline: none; }
+.vitrina__item.is-elegido:focus-visible img { outline: 2px solid currentColor; outline-offset: 8px; border-radius: 0.5rem; }
 
 .vitrina__item.is-elegido .vitrina__nombre {
   opacity: 0;
@@ -208,6 +218,24 @@
 .ficha__paso:hover,
 .ficha__paso:focus-visible {
   opacity: 0.6;
+}
+
+.ficha__todos {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.45rem 0.8rem;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+}
+
+.ficha__todos > span {
+  font-family: sans-serif;
+  font-size: 1.8rem;
+  line-height: 1;
 }
 
 .ficha__titulo {
@@ -272,18 +300,23 @@
 
 .carta-lista li {
   position: relative;
-  border-bottom: 1px solid var(--linea);
-  break-inside: avoid;
-}
-
-.carta-item {
   display: grid;
   grid-template-columns: 2.1rem minmax(0, 1fr) auto;
   align-items: baseline;
   column-gap: 0.4rem;
-  width: 100%;
   padding: 0.38rem 0 0.42rem;
-  text-align: left;
+  border-bottom: 1px solid var(--linea);
+  break-inside: avoid;
+  transition: transform 220ms var(--ease-out), box-shadow 220ms ease, background-color 220ms ease;
+}
+
+@media (hover: hover) {
+  .carta-lista li:hover {
+    z-index: 2;
+    transform: translateY(-5px) scale(1.025);
+    background: var(--papel);
+    box-shadow: 0 10px 18px -9px rgb(60 38 20 / 0.35);
+  }
 }
 
 .carta-lista__num {
@@ -313,57 +346,251 @@
   opacity: 0.7;
 }
 
-/* Mostradores con encargo (Pastelería, Temporada): cada dulce se levanta sobre los demás.
-   Al pasar el ratón sube un poco, se pone sobre el papel y su sombra cae sobre los de arriba y abajo;
-   al pulsarlo se rellena el encargo. */
-.carta-lista--encargo li {
-  transition: opacity 0.25s ease;
+.ficha__nota {
+  margin-top: 1rem;
+  font-size: var(--t-descripcion);
+  opacity: 0.7;
 }
 
-.carta-item--encargo {
-  --levanta: 0.7rem;
-  box-sizing: content-box;
-  width: calc(100% - 2 * var(--levanta));
-  margin-inline: calc(-1 * var(--levanta));
-  padding-inline: var(--levanta);
-  border: 0;
-  border-radius: 0.7rem;
+/* La foto ancla dos bloques independientes. Sus coordenadas se calculan al abrir. */
+.vitrina { position: relative; }
+.ficha__panel { display: contents; }
+.ficha__panel[hidden] { display: none; }
+.ficha__panel > .ficha__sobre,
+.ficha__panel > .ficha__carta {
+  position: absolute;
+  z-index: 3;
+  min-width: 0;
+}
+.ficha__panel .ficha__titulo { font-size: clamp(2rem, 3.3vw, 3rem); text-wrap: balance; }
+.ficha__panel .ficha__frase { font-size: 1.1rem; line-height: 1.4; }
+.ficha__panel .ficha__lead { margin-top: 0.8rem; font-size: 1rem; line-height: 1.5; max-width: none; text-wrap: pretty; }
+.ficha__panel .ficha__acciones { margin-top: 1rem; }
+.ficha__panel .carta-lista { columns: var(--columnas-carta, 2); column-gap: 1.5rem; }
+.ficha__panel .carta-lista__nombre { font-size: 1.05rem; }
+.ficha__panel .carta-lista__desc { font-size: 0.85rem; }
+.ficha__panel .carta-lista__lado { white-space: normal; }
+.ficha__panel .ficha__nota { margin-top: 0.6rem; }
+.ficha__panel .ficha__etiqueta { margin-bottom: 0.75rem; }
+.ficha__panel .ficha__cab > .ficha__etiqueta { margin-top: 1rem; }
+.ficha__sobre[data-alineacion="end"] { text-align: right; }
+.ficha__sobre[data-alineacion="end"] :is(.ficha__etiqueta, .ficha__acciones) { justify-content: flex-end; }
+.ficha__sobre[data-alineacion="center"] { text-align: center; }
+.ficha__sobre[data-alineacion="center"] :is(.ficha__etiqueta, .ficha__acciones) { justify-content: center; }
+.oferta__reserva { height: 0; pointer-events: none; }
+.ficha__hueco-movil,
+.ficha__volver-movil { display: none; }
+
+/* Galería de cada servicio, después de su ficha y dentro de la misma sección. */
+.muestra {
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  scroll-margin-top: 5.5rem;
+}
+.muestra[hidden] { display: none; }
+.muestra__cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--tinta-cartel);
+}
+.muestra__etiqueta,
+.muestra__foto figcaption {
+  font-family: var(--font-condensada);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.muestra__titulo {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.muestra__controles { display: flex; gap: 0.5rem; }
+.muestra__controles[hidden] { display: none; }
+.muestra__controles button {
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
   background: transparent;
   color: inherit;
-  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
   cursor: pointer;
-  transition:
-    transform 0.32s var(--ease-out),
-    box-shadow 0.32s var(--ease-out),
-    background-color 0.2s ease;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+.muestra__controles button:hover,
+.muestra__controles button:focus-visible { background: var(--tinta-cartel); color: var(--papel); }
+.muestra__controles button:disabled { opacity: 0.3; cursor: default; }
+.muestra__controles button:disabled:hover { background: transparent; color: inherit; }
+.muestra__pista {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(32%, 24rem);
+  gap: clamp(0.8rem, 1.5vw, 1.3rem);
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tinta-cartel) transparent;
+}
+.muestra__pista:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.muestra__foto { min-width: 0; scroll-snap-align: start; }
+.muestra__marco {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--papel-hundido);
+}
+.muestra__marco img { width: 100%; height: 100%; object-fit: cover; }
+.muestra__foto--ilustracion .muestra__marco img { object-fit: contain; }
+.muestra__foto figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-top: 0.65rem;
+  line-height: 1.35;
+}
+.muestra__foto figcaption span:first-child { opacity: 0.65; white-space: nowrap; }
+
+@media (max-width: 860px) {
+  .oferta__cabeza { grid-template-columns: 1fr; }
+  .vitrina { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
+  .vitrina__item { grid-column: auto; grid-row: auto; }
+  .muestra__pista { grid-auto-columns: min(78%, 22rem); }
+
+  /* La rejilla y todos sus productos conservan sus dimensiones al abrir. */
+  .ficha__panel > .ficha__sobre { display: flow-root; }
+  .ficha__hueco-movil { display: block; pointer-events: none; }
+  .ficha__panel .ficha__titulo { font-size: clamp(1.6rem, 6vw, 2.7rem); text-wrap: initial; }
+  .ficha__panel .ficha__frase { font-size: 0.95rem; line-height: 1.4; }
+  .ficha__panel .ficha__lead { font-size: 0.95rem; line-height: 1.65; text-wrap: initial; }
+  .ficha__panel .ficha__cab > .ficha__etiqueta { display: none; }
+  .ficha__volver-movil { display: block; clear: both; padding-top: 1rem; }
+  .ficha__panel .ficha__todos { min-height: 44px; font-size: 0.95rem; }
+  .ficha__panel .ficha__acciones { clear: both; gap: 1rem; }
+  .ficha__panel .ficha__paso { min-height: 44px; }
+  .ficha__panel > .ficha__carta { padding-top: 1.2rem; border-top: 1px solid var(--tinta-cartel); }
+  .ficha__panel .carta-lista { columns: 1; }
+  .ficha__panel .carta-lista li { padding-block: 0.65rem; }
 }
 
-.carta-item--encargo:hover,
-.carta-item--encargo:focus-visible {
-  position: relative;
-  z-index: 3;
-  transform: translateY(-3px) scale(1.035);
-  background: #f7f5f1;
-  box-shadow:
-    0 1px 2px rgb(70 22 24 / 0.18),
-    0 10px 22px -6px rgb(70 22 24 / 0.38),
-    0 26px 38px -16px rgb(70 22 24 / 0.3);
+/* Decoración y marcos de las fichas: solo versión móvil. */
+@media (max-width: 860px) {
+  .ficha__texto-escritorio { display: none; }
+  .ficha__texto-movil { display: inline; }
+  .ficha__panel .ficha__hueco-movil { display: none; }
+  .ficha__panel .ficha__cab,
+  .ficha__panel .ficha__lead { width: calc(100% - var(--zona-producto)); }
+  .ficha__sobre[data-lado="izquierda"] .ficha__cab,
+  .ficha__sobre[data-lado="izquierda"] .ficha__lead { margin-left: auto; margin-right: 0; }
+  .ficha__sobre[data-lado="derecha"] .ficha__cab,
+  .ficha__sobre[data-lado="derecha"] .ficha__lead { margin-right: auto; margin-left: 0; }
+  .ficha__panel .ficha__titulo { font-size: clamp(1.45rem, 6vw, 1.85rem); line-height: 1.08; text-wrap: balance; }
+  .ficha__panel .ficha__frase { font-size: clamp(.86rem, 3.6vw, 1rem); line-height: 1.45; text-wrap: balance; }
+  .ficha__panel .ficha__lead { margin-top: 1rem; font-size: clamp(.875rem, 3.65vw, 1rem); line-height: 1.6; text-align: left; text-wrap: pretty; hyphens: auto; }
+  .ficha__panel .ficha__volver-movil { padding-top: 1.25rem; }
+  .ficha__panel .ficha__acciones { display: grid; grid-template-columns: 1fr; gap: .85rem; margin-top: 1.1rem; }
+  .ficha__panel .ficha__ver-fotos,
+  .ficha__panel .ficha__encargo { justify-self: start; }
+  .ficha__panel .ficha__pasos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; width: 100%; }
+  .ficha__panel .ficha__pasos .ficha__paso { text-align: left; padding-block: .65rem; font-size: .75rem; letter-spacing: .09em; }
+  .ficha__panel .ficha__pasos .ficha__paso:last-child { text-align: right; }
+  .ficha__panel > .ficha__carta { border-top: 0; padding-top: .5rem; }
 }
 
-.carta-item--encargo:focus-visible {
+
+.ficha__texto-movil { display: none; }
+.ficha__reclamo, .ficha__reclamo[hidden] { display: none; }
+@media (max-width: 860px) {
+  .ficha__texto-movil { display: inline; }
+  .ficha__reclamo:not([hidden]) { display: flex; }
+  .ficha__reclamo { position: absolute; z-index: 0; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; margin: 0; padding: .5rem .8rem; text-align: center; pointer-events: none; color: var(--tinta-cartel); }
+  .ficha__reclamo-texto { max-width: 22ch; font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: var(--tamano-reclamo, 1.8rem); line-height: 1.15; letter-spacing: -.025em; text-wrap: balance; }
+  .ficha__reclamo-etiqueta { font-family: var(--font-condensada); font-size: .64rem; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; opacity: .7; }
+}
+
+/* Cartas con portadas y páginas visibles. */
+.ficha__catalogos {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;margin:0 0 2rem;padding:.5rem .5rem 0;}
+.ficha__catalogos button {display:flex;flex-direction:column;gap:.65rem;align-items:start;border:0;padding:0;background:none;color:inherit;text-align:left;font-family:var(--font-display);font-size:1.05rem;line-height:1.2;cursor:pointer;min-width:0;}
+.catalogo__hojas {display:block;position:relative;width:100%;aspect-ratio:440/622;margin-bottom:.5rem;}
+.catalogo__hojas img {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;box-shadow:0 6px 16px #301c1922;transition:transform 300ms ease;}
+.catalogo__interior {transform:translate(5px,3px) rotate(4deg);}
+.ficha__catalogos button:hover .catalogo__portada {transform:rotate(-4deg);}
+.ficha__catalogos button:focus-visible {outline:2px solid currentColor;outline-offset:6px;}
+.ficha__catalogo-tipo {font-family:var(--font-condensada);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;}
+@media(max-width:440px){.ficha__catalogos{gap:.8rem}.ficha__catalogos button{font-size:.9rem}.ficha__catalogo-tipo{font-size:.65rem}}
+@media(prefers-reduced-motion:reduce){.catalogo__hojas img{transition:none}.visor[open]{animation:none}}
+
+/* Subcategorías discretas para recorrer mejor cada carta. */
+.carta-grupo {margin-top:1.6rem;break-inside:avoid-column;}
+.carta-grupo__titulo {margin:0 0 .65rem;padding-top:.8rem;border-top:1px solid currentColor;font-family:var(--font-condensada);font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;}
+@media(max-width:860px){.vitrina #vitrina-salados{grid-column:1 / -1;width:calc((100% - var(--hueco-h))/2);justify-self:center;}}
+
+#vitrina-salados .vitrina__num {justify-self:center;}
+
+/* Lectura cómoda en las fichas de móvil: título junto al producto, descripción a todo el ancho. */
+@media (max-width: 860px) {
+  .ficha__panel .ficha__cab {min-height:var(--alto-producto);box-sizing:border-box;}
+  .ficha__panel .ficha__titulo {font-size:clamp(1.8rem,7.5vw,2.4rem);line-height:1.1;letter-spacing:-.025em;}
+  .ficha__panel .ficha__frase {margin-top:.75rem;font-size:clamp(1rem,4.3vw,1.25rem);line-height:1.4;}
+  .ficha__panel .ficha__lead {width:100%;max-width:38ch;margin:1.25rem 0 0;font-size:clamp(1.05rem,4.5vw,1.2rem);line-height:1.65;hyphens:none;word-break:normal;overflow-wrap:normal;text-wrap:pretty;}
+  .ficha__panel .ficha__volver-movil {padding-top:1.15rem;}
+  .ficha__panel .ficha__acciones {margin-top:.9rem;gap:.75rem;}
+  .ficha__panel .ficha__pasos .ficha__paso {font-size:.875rem;letter-spacing:.06em;}
+  .ficha__panel .carta-lista__nombre {font-size:clamp(1.15rem,4.7vw,1.35rem);line-height:1.35;}
+  .ficha__panel .carta-lista__desc,.ficha__panel .ficha__nota {font-size:.95rem;line-height:1.55;}
+  .ficha__panel .carta-grupo__titulo {font-size:.95rem;letter-spacing:.08em;}
+}
+
+/* Mostradores con encargo (Pastelería, Temporada, Salados): cada dulce se levanta sobre los demás.
+   Al pasar el ratón sube, se pone encima del papel y su sombra cae sobre los de arriba y abajo;
+   al pulsarlo se rellena el encargo y se baja al formulario. */
+.carta-lista li.carta-encargo {
+  --levanta: 0.7rem;
+  margin-inline: calc(-1 * var(--levanta));
+  padding-inline: var(--levanta);
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .carta-lista li.carta-encargo:hover {
+    transform: translateY(-4px) scale(1.035);
+    background: #f7f5f1;
+    box-shadow:
+      0 1px 2px rgb(70 22 24 / 0.18),
+      0 10px 22px -6px rgb(70 22 24 / 0.38),
+      0 26px 38px -16px rgb(70 22 24 / 0.3);
+  }
+
+  /* El resto retrocede un poco para dar sensación de profundidad */
+  .carta-lista:has(li.carta-encargo:hover) li:not(:hover) {
+    opacity: 0.62;
+  }
+}
+
+.carta-lista li.carta-encargo:focus-visible {
   outline: 2px solid var(--burdeos-claro);
   outline-offset: 2px;
+  z-index: 3;
+  transform: translateY(-4px) scale(1.035);
+  background: #f7f5f1;
+  box-shadow: 0 10px 22px -6px rgb(70 22 24 / 0.38), 0 26px 38px -16px rgb(70 22 24 / 0.3);
 }
 
-.carta-item--encargo:active {
+.carta-lista li.carta-encargo:active {
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 1px 2px rgb(70 22 24 / 0.2), 0 6px 12px -4px rgb(70 22 24 / 0.35);
 }
 
-/* El resto retrocede un poco para dar sensación de profundidad */
-.carta-lista--encargo:has(.carta-item--encargo:hover) li:not(:hover),
-.carta-lista--encargo:has(.carta-item--encargo:focus-visible) li:not(:has(:focus-visible)) {
-  opacity: 0.62;
+.carta-lista li {
+  transition: transform 220ms var(--ease-out), box-shadow 220ms ease, background-color 220ms ease, opacity 220ms ease;
 }
 
 /* "Encargar →" aparece donde estaba la fecha */
@@ -383,130 +610,24 @@
   transition: opacity 0.2s ease, transform 0.3s var(--ease-out);
 }
 
-.carta-item--encargo:hover .carta-lista__ir,
-.carta-item--encargo:focus-visible .carta-lista__ir {
+.carta-encargo:hover .carta-lista__ir,
+.carta-encargo:focus-visible .carta-lista__ir {
   opacity: 1;
   transform: none;
 }
 
-.carta-item--encargo:hover .carta-lista__lado,
-.carta-item--encargo:focus-visible .carta-lista__lado {
+.carta-encargo:hover .carta-lista__lado,
+.carta-encargo:focus-visible .carta-lista__lado {
   opacity: 0;
 }
 
 @media (hover: none) {
   /* En pantallas táctiles no hay "pasar por encima": la indicación se ve siempre */
   .carta-lista__ir { opacity: 0.8; transform: none; }
-  .carta-item--encargo .carta-lista__lado { opacity: 0; }
+  .carta-encargo .carta-lista__lado { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carta-item--encargo,
+  .carta-lista li,
   .carta-lista__ir { transition: none; }
-}
-
-.ficha__nota {
-  margin-top: 1rem;
-  font-size: var(--t-descripcion);
-  opacity: 0.7;
-}
-
-/* --- Colocación según la casilla del elegido (fila r, columna c) --- */
-
-/* Arriba a la izquierda: texto a la derecha del producto; la carta debajo, a todo el ancho */
-.vitrina[data-pos="r1c1"] .ficha__sobre { grid-column: 2 / 4; grid-row: 1; }
-.vitrina[data-pos="r1c1"] .ficha__carta { grid-column: 1 / 4; grid-row: 2; --cols: 3; align-self: start; }
-
-/* Arriba a la derecha: texto a la izquierda; la carta debajo */
-.vitrina[data-pos="r1c3"] .ficha__sobre { grid-column: 1 / 3; grid-row: 1; }
-.vitrina[data-pos="r1c3"] .ficha__carta { grid-column: 1 / 4; grid-row: 2; --cols: 3; align-self: start; }
-
-/* Con el producto en la fila de abajo, la de arriba no puede crecer: si el contenido es más
-   alto de lo previsto, el exceso va a la fila de abajo y el producto no se desplaza */
-.vitrina[data-pos^="r2"] {
-  grid-template-rows: var(--celda, auto) auto;
-}
-
-/* Abajo a la izquierda: texto arriba, a todo el ancho; la carta a la derecha del producto */
-.vitrina[data-pos="r2c1"] .ficha__sobre { grid-column: 1 / 4; grid-row: 1; align-self: end; }
-.vitrina[data-pos="r2c1"] .ficha__carta { grid-column: 2 / 4; grid-row: 2; --cols: 2; align-self: start; }
-
-/* Abajo a la derecha: texto arriba; la carta a la izquierda del producto */
-.vitrina[data-pos="r2c3"] .ficha__sobre { grid-column: 1 / 4; grid-row: 1; align-self: end; }
-.vitrina[data-pos="r2c3"] .ficha__carta { grid-column: 1 / 3; grid-row: 2; --cols: 2; align-self: start; }
-
-/* En el centro: texto a la izquierda y carta a la derecha, el producto en medio */
-.vitrina[data-pos$="c2"] .ficha__sobre { grid-column: 1; grid-row: 1 / 3; }
-.vitrina[data-pos$="c2"] .ficha__carta { grid-column: 3; grid-row: 1 / 3; --cols: 1; }
-
-/* Texto a todo el ancho: título a la izquierda, entradilla y acciones a la derecha */
-.vitrina:is([data-pos="r2c1"], [data-pos="r2c3"]) .ficha__sobre {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: end;
-  gap: 1.5rem clamp(2rem, 6vw, 6rem);
-}
-
-.vitrina:is([data-pos="r2c1"], [data-pos="r2c3"]) .ficha__lead {
-  margin-top: 0;
-}
-
-/* --- Responsive: en pantallas estrechas el elegido pasa arriba y la ficha va debajo --- */
-@media (max-width: 860px) {
-  .oferta__cabeza {
-    grid-template-columns: 1fr;
-  }
-
-  .vitrina {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: auto;
-  }
-
-  /* Dos columnas: los productos se colocan solos, sin las casillas de escritorio */
-  .vitrina__item {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .vitrina.is-abierta {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-  }
-
-  .vitrina.is-abierta .vitrina__item:not(.is-elegido) {
-    display: none;
-  }
-
-  .vitrina.is-abierta .vitrina__item.is-elegido {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: center;
-    width: min(78%, 22rem);
-  }
-
-  .vitrina[data-pos] .ficha__sobre,
-  .vitrina[data-pos] .ficha__carta {
-    grid-column: 1;
-    align-self: start;
-    --cols: 1;
-  }
-
-  .vitrina[data-pos] .ficha__sobre {
-    grid-row: 2;
-    display: block;
-  }
-
-  .vitrina[data-pos] .ficha__carta {
-    grid-row: 3;
-  }
-
-  .vitrina[data-pos] .ficha__lead {
-    margin-top: 1.1rem;
-  }
-}
-
-@media (min-width: 560px) and (max-width: 860px) {
-  .vitrina[data-pos] .ficha__carta {
-    --cols: 2;
-  }
 }
