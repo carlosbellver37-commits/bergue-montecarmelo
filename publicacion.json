@@ -2,7 +2,7 @@
   "nombre": "Bergue Montecarmelo",
   "tipo": "Bakery",
   "descripcion": "Pastelería, panadería y cafetería Bergue en Montecarmelo (Madrid). Café de Colombia, tartas por encargo, heladería, salados y productos de temporada.",
-  "dominio": "",
+  "dominio": "https://berguemontecarmelo.es",
   "telefono": "+34911721853",
   "direccion": { "calle": "Calle Monasterio de Liébana, 5-7", "cp": "28049", "ciudad": "Madrid" },
   "horario": ["Mo-Su 08:00-21:30"],
