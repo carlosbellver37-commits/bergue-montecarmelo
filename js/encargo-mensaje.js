@@ -10,6 +10,7 @@ export const TIPOS = {
   tarta: "Tarta",
   salados: "Bandeja de salados",
   pan: "Pan o bollería",
+  temporada: "Dulce de temporada",
   otro: "Otro encargo",
 };
 

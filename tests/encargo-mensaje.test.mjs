@@ -28,6 +28,11 @@ test("sin hora ni dedicatoria no deja líneas vacías de campo", () => {
   assert.ok(m.includes("Recogida: viernes, 6 de noviembre\n"));
   assert.ok(!m.includes("Dedicatoria"));
 });
+test("acepta un dulce de temporada", () => {
+  const r = validar({ ...base, tipo: "temporada", detalle: "Torrijas (Semana Santa): 12 unidades" }, HOY);
+  assert.equal(r.ok, true);
+  assert.ok(construirMensaje(r.datos).includes("Encargo: Dulce de temporada"));
+});
 test("el enlace va a wa.me con el texto codificado", () => {
   const u = enlaceWhatsApp("Hola ñ\nB");
   assert.ok(u.startsWith("https://wa.me/34629444745?text="));

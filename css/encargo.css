@@ -84,16 +84,6 @@
   line-height: 1.5;
 }
 
-.campo select {
-  padding-right: 1.6rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23efede8' stroke-width='1.5'/%3E%3C/svg%3E") right 0.2rem center / 0.8rem no-repeat;
-}
-
-.campo select option {
-  color: var(--tinta);
-  background: var(--papel);
-}
-
 .campo ::placeholder {
   color: rgb(239 237 232 / 0.45);
 }
@@ -163,4 +153,124 @@
     width: 100%;
     justify-content: space-between;
   }
+}
+
+/* --- Desplegable propio (selector.js) --- */
+
+.campo {
+  position: relative;
+}
+
+.combo {
+  position: relative;
+}
+
+.combo__boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.7rem 0;
+  border: 0;
+  border-bottom: 1px solid rgb(239 237 232 / 0.5);
+  background: transparent;
+  color: var(--papel);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--dur-fast);
+}
+
+.combo.is-vacio .combo__valor {
+  color: rgb(239 237 232 / 0.45);
+}
+
+.combo__boton:hover {
+  border-bottom-color: var(--papel);
+}
+
+.combo__boton:focus-visible,
+.combo.is-abierto .combo__boton {
+  outline: 0;
+  border-bottom: 2px solid var(--rosa-viejo);
+  padding-bottom: calc(0.7rem - 1px);
+}
+
+.combo__boton[aria-invalid="true"] {
+  border-bottom-color: #ffb3a7;
+}
+
+.combo__flecha {
+  flex: none;
+  width: 0.8rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.combo.is-abierto .combo__flecha {
+  transform: rotate(180deg);
+}
+
+.combo__lista {
+  position: absolute;
+  z-index: 20;
+  inset: calc(100% + 0.5rem) 0 auto 0;
+  max-height: 16rem;
+  margin: 0;
+  padding: 0.4rem;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid rgb(239 237 232 / 0.28);
+  border-radius: 1rem;
+  background: #3d1416;
+  box-shadow: 0 22px 44px -12px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.3);
+  animation: combo-entra 0.22s var(--ease-out);
+}
+
+.combo__lista:focus {
+  outline: 0;
+}
+
+@keyframes combo-entra {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+}
+
+.combo__opcion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.65rem;
+  color: var(--papel);
+  font-size: 1rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.combo__opcion.is-activa {
+  background: rgb(239 237 232 / 0.12);
+}
+
+.combo__opcion[aria-selected="true"] {
+  font-weight: 500;
+  color: #fff;
+}
+
+.combo__opcion[aria-selected="true"]::after {
+  content: "";
+  flex: none;
+  width: 0.55rem;
+  height: 0.9rem;
+  margin-right: 0.15rem;
+  border: solid var(--rosa-viejo);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .combo__lista { animation: none; }
+  .combo__flecha { transition: none; }
 }

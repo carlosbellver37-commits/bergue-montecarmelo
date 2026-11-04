@@ -1,5 +1,6 @@
 // Formulario de encargos: valida, avisa de lo que falta y abre WhatsApp con el mensaje preparado.
 import { validar, construirMensaje, enlaceWhatsApp, fechaMinima } from "./encargo-mensaje.js";
+import { mejorarSelect } from "./selector.js";
 
 const form = document.querySelector("[data-encargo]");
 
@@ -8,6 +9,7 @@ if (form) {
   const campos = [...form.querySelectorAll("[data-campo]")];
   const fecha = form.elements.fecha;
   fecha.min = fechaMinima();
+  form.querySelectorAll("select").forEach(mejorarSelect);
 
   const leer = () => Object.fromEntries(campos.map((c) => [c.name, c.value]));
 
@@ -16,6 +18,7 @@ if (form) {
       const texto = errores[c.name] || "";
       const aviso = form.querySelector(`[data-error="${c.name}"]`);
       c.setAttribute("aria-invalid", texto ? "true" : "false");
+      if (c.focusTarget) c.focusTarget.setAttribute("aria-invalid", texto ? "true" : "false");
       if (aviso) aviso.textContent = texto;
     });
   }
@@ -26,6 +29,25 @@ if (form) {
     marcar(validar(leer()).errores);
   }));
 
+  // Al pulsar un producto de la carta: se rellena el encargo y se baja a él
+  window.addEventListener("bergue:encargar", (evento) => {
+    const { tipo, texto } = evento.detail || {};
+    const tipoCampo = form.elements.tipo;
+    if (tipo && [...tipoCampo.options].some((o) => o.value === tipo)) {
+      tipoCampo.value = tipo;
+      tipoCampo.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    const detalle = form.elements.detalle;
+    detalle.value = texto || "";
+    marcar({});
+    const seccion = document.getElementById("encargos");
+    if (seccion) seccion.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+      detalle.focus({ preventScroll: true });
+      detalle.setSelectionRange(detalle.value.length, detalle.value.length);
+    }, 600);
+  });
+
   form.addEventListener("submit", (evento) => {
     evento.preventDefault();
     const { ok, errores, datos } = validar(leer());
@@ -34,7 +56,7 @@ if (form) {
       estado.textContent = "Revisa los campos marcados.";
       estado.dataset.tipo = "error";
       const primero = campos.find((c) => errores[c.name]);
-      if (primero) primero.focus();
+      if (primero) (primero.focusTarget || primero).focus();
       return;
     }
     const url = enlaceWhatsApp(construirMensaje(datos));

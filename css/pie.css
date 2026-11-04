@@ -141,3 +141,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Logo antiguo de Bergue, al final del todo (una sola tinta: se tiñe con el color del pie) */
+.pie__firma {
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) 0.5rem;
+}
+
+.pie__logo {
+  display: block;
+  width: clamp(9rem, 7rem + 8vw, 13rem);
+  aspect-ratio: 250 / 114;
+  background-color: var(--papel);
+  -webkit-mask: url("../assets/img/logo-antiguo.png") center / contain no-repeat;
+  mask: url("../assets/img/logo-antiguo.png") center / contain no-repeat;
+  opacity: 0.92;
+}
