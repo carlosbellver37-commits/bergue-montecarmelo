@@ -59,6 +59,9 @@ ajustarVapor();
 // se reintenta con el primer gesto de la persona. Mientras tanto se ve el primer fotograma, sin botón.
 const videoCafe = document.querySelector(".hero__cafe-video");
 if (videoCafe) {
+  const marcar = () => videoCafe.classList.add("is-reproduciendo");
+  videoCafe.addEventListener("playing", marcar);
+  if (!videoCafe.paused && videoCafe.readyState > 2) marcar();
   const reproducir = () => videoCafe.play().catch(() => {});
   reproducir();
   ["touchstart", "pointerdown", "scroll", "keydown"].forEach((tipo) =>
