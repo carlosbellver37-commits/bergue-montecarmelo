@@ -31,3 +31,15 @@
 /* Firma visible, del mismo carácter tipográfico que la web. */
 .cf-marca { opacity: 1; mix-blend-mode: multiply; }
 .cf-firma { font-family: var(--font-display); font-size: 112px; font-weight: 800; letter-spacing: -5px; font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0; }
+/* El vídeo del café es decorativo: en iPhone con ahorro de batería el sistema bloquea el
+   reproductor automático y mostraba un botón "play" encima de la taza. Se oculta siempre. */
+.hero__cafe-video { pointer-events: none; }
+.hero__cafe-video::-webkit-media-controls,
+.hero__cafe-video::-webkit-media-controls-panel,
+.hero__cafe-video::-webkit-media-controls-overlay-play-button,
+.hero__cafe-video::-webkit-media-controls-start-playback-button,
+.hero__cafe-video::-webkit-media-controls-enclosure {
+  display: none !important;
+  opacity: 0 !important;
+  -webkit-appearance: none;
+}

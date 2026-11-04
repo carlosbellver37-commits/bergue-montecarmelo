@@ -54,3 +54,20 @@ function ajustarVapor() {
 new ResizeObserver(ajustarVapor).observe(producto);
 imagen.addEventListener("load", ajustarVapor);
 ajustarVapor();
+
+// Vídeo del café: si el sistema bloquea la reproducción automática (p. ej. iPhone con ahorro de batería),
+// se reintenta con el primer gesto de la persona. Mientras tanto se ve el primer fotograma, sin botón.
+const videoCafe = document.querySelector(".hero__cafe-video");
+if (videoCafe) {
+  const reproducir = () => videoCafe.play().catch(() => {});
+  reproducir();
+  ["touchstart", "pointerdown", "scroll", "keydown"].forEach((tipo) =>
+    window.addEventListener(
+      tipo,
+      () => {
+        if (videoCafe.paused) reproducir();
+      },
+      { once: true, passive: true },
+    ),
+  );
+}
