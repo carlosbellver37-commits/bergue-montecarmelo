@@ -6,6 +6,6 @@
   "telefono": "+34911721853",
   "direccion": { "calle": "Calle Monasterio de Liébana, 5-7", "cp": "28049", "ciudad": "Madrid" },
   "horario": ["Mo-Su 08:00-21:30"],
-  "imagenSocial": "",
+  "imagenSocial": "assets/img/social.jpg",
   "paginas": ["/", "/aviso-legal/", "/privacidad/", "/cookies/"]
 }
