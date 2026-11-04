@@ -18,19 +18,28 @@ function recordar() {
   }
 }
 
+function cerrar(aviso) {
+  aviso.classList.add("is-saliendo");
+  const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(() => aviso.remove(), sinMovimiento ? 0 : 260);
+}
+
 if (!yaAceptado()) {
   const aviso = document.createElement("div");
   aviso.className = "aviso-cookies";
   aviso.setAttribute("role", "region");
   aviso.setAttribute("aria-label", "Aviso de cookies");
   aviso.innerHTML =
-    '<p class="aviso-cookies__texto"><strong>Cookies.</strong> Esta web no instala cookies de seguimiento ni de publicidad y no recoge datos personales sin tu conocimiento. ' +
-    "Carga tipografías de Google y contiene enlaces a WhatsApp y Google Maps, servicios de terceros con políticas de privacidad propias que tú decides si aceptas al usarlos. " +
-    'Para más información consulta la <a href="/cookies/">política de cookies</a>.</p>' +
-    '<button type="button" class="aviso-cookies__boton">Aceptar</button>';
+    '<p class="aviso-cookies__etiqueta">Cookies</p>' +
+    '<h2 class="aviso-cookies__titulo">Sin cookies de seguimiento</h2>' +
+    '<p class="aviso-cookies__texto">Esta web no instala cookies de seguimiento ni de publicidad y no recoge datos personales sin tu conocimiento. ' +
+    "Solo carga tipografías de Google y enlaza a WhatsApp y Google Maps, servicios de terceros con sus propias políticas de privacidad.</p>" +
+    '<div class="aviso-cookies__acciones">' +
+    '<a class="aviso-cookies__enlace" href="/cookies/">Política de cookies</a>' +
+    '<button type="button" class="aviso-cookies__boton">Aceptar</button></div>';
   aviso.querySelector("button").addEventListener("click", () => {
     recordar();
-    aviso.remove();
+    cerrar(aviso);
   });
   document.body.append(aviso);
 }

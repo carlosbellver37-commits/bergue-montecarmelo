@@ -1,47 +1,100 @@
-/* Aviso de cookies: barra inferior, discreta, con el papel y el burdeos de la web */
+/* Aviso de cookies: tarjeta flotante con el papel, el burdeos y las tipografías de la web */
 .aviso-cookies {
   position: fixed;
   z-index: 2147483000;
-  inset: auto 0 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1rem clamp(1rem, 4vw, 2.5rem) calc(1rem + env(safe-area-inset-bottom));
-  background: #efede8;
-  color: #1c1513;
-  border-top: 1px solid rgb(28 21 19 / 0.2);
-  box-shadow: 0 -12px 30px -12px rgb(28 21 19 / 0.3);
-  font-family: "Roboto", system-ui, sans-serif;
-  font-size: 0.95rem;
+  left: clamp(0.75rem, 2.5vw, 2rem);
+  bottom: calc(clamp(0.75rem, 2.5vw, 2rem) + env(safe-area-inset-bottom));
+  width: min(25rem, calc(100vw - 1.5rem));
+  padding: 1.5rem 1.6rem 1.35rem;
+  background: var(--papel, #efede8);
+  color: var(--tinta, #1c1513);
+  border-radius: 1.25rem;
+  box-shadow:
+    inset 0 0 0 1px rgb(86 29 31 / 0.14),
+    0 2px 6px rgb(28 21 19 / 0.08),
+    0 24px 48px -16px rgb(28 21 19 / 0.38);
+  font-family: var(--font-body, "Roboto", system-ui, sans-serif);
+  font-size: 0.9rem;
   line-height: 1.55;
   font-weight: 300;
+  animation: aviso-cookies-entra 0.7s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 0.4s backwards;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.aviso-cookies__texto { margin: 0; max-width: 62rem; }
-.aviso-cookies__texto strong { font-weight: 500; }
-.aviso-cookies__texto a { color: #561d1f; text-underline-offset: 3px; }
+.aviso-cookies.is-saliendo { opacity: 0; transform: translateY(0.75rem); }
+
+.aviso-cookies__etiqueta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.55rem;
+  font-family: var(--font-condensada, "Barlow Condensed", "Arial Narrow", sans-serif);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--burdeos, #561d1f);
+}
+.aviso-cookies__etiqueta::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--burdeos, #561d1f);
+  box-shadow: 0 0 0 0.25rem rgb(86 29 31 / 0.12);
+}
+
+.aviso-cookies__titulo {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display, "Fraunces", "Times New Roman", serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.aviso-cookies__texto { margin: 0 0 1.15rem; color: var(--tinta-suave, #5f5650); }
+
+.aviso-cookies__acciones { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+.aviso-cookies__enlace {
+  color: var(--burdeos, #561d1f);
+  font-weight: 400;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.aviso-cookies__enlace:hover { color: var(--burdeos-claro, #8a3a33); }
 
 .aviso-cookies__boton {
   flex: none;
-  padding: 0.7rem 1.8rem;
+  padding: 0.75rem 1.9rem;
   border: 0;
   border-radius: 999px;
-  background: #561d1f;
-  color: #efede8;
-  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  background: var(--burdeos, #561d1f);
+  color: var(--papel, #efede8);
+  font-family: var(--font-condensada, "Barlow Condensed", "Arial Narrow", sans-serif);
   font-weight: 600;
   font-size: 1rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.aviso-cookies__boton:hover { background: var(--burdeos-claro, #8a3a33); transform: translateY(-1px); }
+.aviso-cookies__boton:active { transform: translateY(0); }
+.aviso-cookies__boton:focus-visible,
+.aviso-cookies__enlace:focus-visible { outline: 2px solid var(--tinta, #1c1513); outline-offset: 3px; }
+
+@keyframes aviso-cookies-entra {
+  from { opacity: 0; transform: translateY(1.25rem); }
 }
 
-.aviso-cookies__boton:hover,
-.aviso-cookies__boton:focus-visible { background: #8a3a33; outline: 2px solid #1c1513; outline-offset: 2px; }
+@media (max-width: 30rem) {
+  .aviso-cookies { left: 0.75rem; right: 0.75rem; width: auto; padding: 1.25rem 1.3rem 1.15rem; }
+  .aviso-cookies__titulo { font-size: 1.25rem; }
+}
 
-@media (max-width: 40rem) {
-  .aviso-cookies { flex-direction: column; align-items: stretch; gap: 0.8rem; font-size: 0.88rem; }
-  .aviso-cookies__boton { align-self: flex-end; }
+@media (prefers-reduced-motion: reduce) {
+  .aviso-cookies { animation: none; transition: none; }
+  .aviso-cookies__boton { transition: none; }
 }
