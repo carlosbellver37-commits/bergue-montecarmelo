@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "bergue-montecarmelo.vercel.app" }],
+      "destination": "https://berguemontecarmelo.es/$1",
+      "permanent": false
+    }
+  ]
+}
