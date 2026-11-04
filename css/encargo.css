@@ -1,0 +1,166 @@
+/* --- Formulario de encargos (envía por WhatsApp) · dentro de la franja burdeos --- */
+
+.pedido {
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  border: 1px solid rgb(239 237 232 / 0.3);
+  border-radius: clamp(1.25rem, 2.4vw, 2rem);
+  background: rgb(239 237 232 / 0.05);
+}
+
+.pedido__titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+}
+
+.pedido__intro {
+  max-width: 38rem;
+  margin: 0.9rem 0 0;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.88;
+}
+
+.pedido__rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem clamp(1.25rem, 3vw, 2.5rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.campo {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.campo--ancho {
+  grid-column: 1 / -1;
+}
+
+.campo label {
+  font-family: var(--font-condensada);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rosa-viejo);
+}
+
+.campo__opcional {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: 0.7rem 0;
+  border: 0;
+  border-bottom: 1px solid rgb(239 237 232 / 0.5);
+  border-radius: 0;
+  background: transparent;
+  color: var(--papel);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 300;
+  appearance: none;
+  -webkit-appearance: none;
+  color-scheme: dark;
+  transition: border-color var(--dur-fast);
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 5rem;
+  line-height: 1.5;
+}
+
+.campo select {
+  padding-right: 1.6rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23efede8' stroke-width='1.5'/%3E%3C/svg%3E") right 0.2rem center / 0.8rem no-repeat;
+}
+
+.campo select option {
+  color: var(--tinta);
+  background: var(--papel);
+}
+
+.campo ::placeholder {
+  color: rgb(239 237 232 / 0.45);
+}
+
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover {
+  border-bottom-color: var(--papel);
+}
+
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  outline: 0;
+  border-bottom: 2px solid var(--rosa-viejo);
+  padding-bottom: calc(0.7rem - 1px);
+}
+
+.campo [aria-invalid="true"] {
+  border-bottom-color: #ffb3a7;
+}
+
+.campo__error {
+  min-height: 0;
+  margin: 0;
+  font-size: 0.86rem;
+  color: #ffb3a7;
+}
+
+.campo__error:empty {
+  display: none;
+}
+
+.pedido__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.pedido button.boton {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.pedido__estado {
+  min-height: 1.4em;
+  margin: 1rem 0 0;
+  font-weight: 400;
+}
+
+.pedido__estado[data-tipo="error"] {
+  color: #ffb3a7;
+}
+
+.pedido__estado[data-tipo="ok"] {
+  color: var(--rosa-viejo);
+}
+
+@media (max-width: 680px) {
+  .pedido__rejilla {
+    grid-template-columns: 1fr;
+  }
+
+  .pedido__acciones .boton {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

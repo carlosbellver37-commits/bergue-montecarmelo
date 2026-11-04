@@ -375,7 +375,8 @@ figure {
     font-size: 0.78rem;
   }
 
-  .cabecera__llegar {
+  .cabecera__llegar,
+  .cabecera__whatsapp {
     display: none;
   }
 

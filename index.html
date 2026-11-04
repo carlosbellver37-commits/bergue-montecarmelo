@@ -4,20 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Bergue Montecarmelo · Pastelería, panadería y cafetería</title>
-  <meta name="description" content="Pastelería, panadería y cafetería Bergue en Montecarmelo (Madrid). Café, tartas por encargo, heladería, salados y productos de temporada." />
+  <meta name="description" content="Pastelería, panadería y cafetería Bergue en Montecarmelo (Madrid). Café de Colombia, tartas por encargo, heladería, salados y productos de temporada." />
   <meta name="theme-color" content="#2c1b18" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/img/cafetera-mandos-finos.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/img/cafetera.webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css?v=37" />
-  <link rel="stylesheet" href="css/hero.css?v=43" />
-  <link rel="stylesheet" href="css/hero-cafetera.css?v=4" />
-  <link rel="stylesheet" href="css/oferta.css?v=56" />
+  <link rel="stylesheet" href="css/hero.css?v=37" />
+  <link rel="stylesheet" href="css/oferta.css?v=37" />
   <link rel="stylesheet" href="css/conocenos.css?v=37" />
   <link rel="stylesheet" href="css/pie.css?v=37" />
-  <link rel="stylesheet" href="css/catalogos.css?v=1" />
+  <link rel="stylesheet" href="css/encargo.css?v=38" />
   <!-- Nukleo Preview: aviso de entrada y contador -->
   <style>html.nk-pending body{visibility:hidden}</style>
   <script>document.documentElement.classList.add('nk-pending');setTimeout(function(){document.documentElement.classList.remove('nk-pending')},4000)</script>
@@ -46,6 +45,7 @@
 
     <ul class="cabecera__acciones">
       <li><a href="tel:+34911721853">Llamar</a></li>
+      <li class="cabecera__whatsapp"><a href="https://wa.me/34629444745" target="_blank" rel="noopener">WhatsApp</a></li>
       <li class="cabecera__llegar"><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Monasterio+de+Li%C3%A9bana+5+28049+Madrid" target="_blank" rel="noopener">Cómo llegar</a></li>
       <li><a class="cabecera__encargo" href="#encargos">Encargos</a></li>
     </ul>
@@ -62,7 +62,7 @@
 
         <div class="hero__info">
           <p class="hero__seccion">Pastelería · Panadería · Cafetería</p>
-          <h2 class="hero__nombre">Café, tartas de la casa y pan recién hecho</h2>
+          <h2 class="hero__nombre">Café de Colombia, tartas de la casa y pan recién hecho</h2>
           <p class="hero__texto">Desayunos, meriendas y encargos para cada celebración, hechos cada día en nuestro obrador familiar.</p>
           <a class="hero__cta" href="#encargos">
             <span aria-hidden="true">//</span><span>Hacer un encargo</span><span aria-hidden="true">//</span>
@@ -70,30 +70,8 @@
         </div>
 
         <figure class="hero__producto">
-          <!-- La foto lleva la taza de espresso (generada con IA y pegada sobre la cafetera original). Encima, un vídeo en bucle
-               recortado a la zona de la taza: el café cayendo de los dos picos y el humito -->
-          <img class="hero__img" src="assets/img/cafetera-mandos-finos.png" width="1366" height="1152" fetchpriority="high" decoding="async"
-               alt="Cafetera espresso sirviendo café en una taza pequeña de porcelana, con la firma Bergue en la base" />
-
-          <!-- Es el contenedor que hero.js ya ajusta a la parte visible de la foto: dentro, todo va en porcentajes -->
-          <div class="hero__vapor" aria-hidden="true">
-            <video class="hero__cafe-video" src="assets/video/cafe.mp4" autoplay muted loop playsinline preload="auto" disablepictureinpicture></video>
-
-            <!-- Controles de nueva construcción y firma de la casa sobre el esmalte. -->
-            <svg class="hero__cafe" viewBox="0 0 1367 1151" focusable="false">
-              <defs>
-                <!-- Las zonas claras dejan pasar el esmalte; solo queda la tinta del dibujo. -->
-                <filter id="marca-tinta" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
-                  <feColorMatrix type="matrix" values="0 0 0 0 .22  0 0 0 0 .13  0 0 0 0 .075  -.55276 -1.85952 -.18772 2.6 -.2" />
-                  <feComposite in2="SourceAlpha" operator="in" />
-                </filter>
-              </defs>
-              <g class="cf-marca">
-                <image href="assets/branding/bergue-panadero.png" x="588" y="869" width="200" height="200" filter="url(#marca-tinta)" />
-              </g>
-            </svg>
-          </div>
-
+          <img class="hero__img" src="assets/img/cafetera.webp" width="1080" height="1097"
+               alt="Cafetera espresso con una taza blanca con el logotipo de Bergue" />
           <span class="hero__sombra" aria-hidden="true"></span>
         </figure>
 
@@ -187,6 +165,12 @@
           </article>
         </div>
 
+        <!-- Fotos reales de la tienda: huecos preparados hasta que lleguen -->
+        <div class="galeria" aria-label="Fotos de la tienda">
+          <figure class="galeria__hueco galeria__hueco--alta" data-reveal><span>Foto · fachada</span></figure>
+          <figure class="galeria__hueco" data-reveal><span>Foto · mostrador</span></figure>
+          <figure class="galeria__hueco" data-reveal><span>Foto · cafetería</span></figure>
+        </div>
       </section>
 
       <!-- Encargos -->
@@ -205,7 +189,7 @@
           <li class="paso" data-reveal style="--retraso: 0.12s">
             <span class="paso__num">02</span>
             <h3 class="paso__titulo">Avísanos</h3>
-            <p>Llámanos o escríbenos con al menos 24 horas de antelación; en Navidad y Reyes, antes.</p>
+            <p>Rellena el formulario y te abrimos WhatsApp con el mensaje listo. Con al menos 24 horas de antelación; en Navidad y Reyes, antes.</p>
           </li>
           <li class="paso" data-reveal style="--retraso: 0.24s">
             <span class="paso__num">03</span>
@@ -214,16 +198,77 @@
           </li>
         </ol>
 
-        <div class="encargos__acciones" data-reveal>
-          <a class="boton boton--lleno" href="tel:+34911721853">
-            <span class="boton__texto">Llamar · 91 172 18 53</span>
-            <span class="boton__icono" aria-hidden="true">→</span>
-          </a>
-          <a class="boton" href="mailto:info@pasteleriabergue.com?subject=Encargo%20en%20Bergue%20Montecarmelo">
-            <span class="boton__texto">Escribir un correo</span>
-            <span class="boton__icono" aria-hidden="true">→</span>
-          </a>
-        </div>
+        <form class="pedido" data-encargo novalidate aria-labelledby="pedido-titulo" data-reveal>
+          <h3 class="pedido__titulo" id="pedido-titulo">Haz tu encargo</h3>
+          <p class="pedido__intro">Cuéntanos qué necesitas y tus datos. Al enviar se abre WhatsApp con el mensaje ya escrito; solo tienes que pulsar Enviar.</p>
+
+          <div class="pedido__rejilla">
+            <div class="campo">
+              <label for="p-tipo">Qué quieres encargar</label>
+              <select id="p-tipo" name="tipo" data-campo required aria-describedby="e-tipo">
+                <option value="">Elige una opción</option>
+                <option value="tarta">Tarta</option>
+                <option value="salados">Bandeja de salados</option>
+                <option value="pan">Pan o bollería</option>
+                <option value="otro">Otro encargo</option>
+              </select>
+              <p class="campo__error" id="e-tipo" data-error="tipo" role="alert"></p>
+            </div>
+
+            <div class="campo campo--ancho">
+              <label for="p-detalle">Detalle del encargo</label>
+              <textarea id="p-detalle" name="detalle" rows="3" data-campo required maxlength="400" placeholder="Tamaño, sabor, número de personas, cantidad…" aria-describedby="e-detalle"></textarea>
+              <p class="campo__error" id="e-detalle" data-error="detalle" role="alert"></p>
+            </div>
+
+            <div class="campo">
+              <label for="p-fecha">Día de recogida</label>
+              <input id="p-fecha" name="fecha" type="date" data-campo required aria-describedby="e-fecha" />
+              <p class="campo__error" id="e-fecha" data-error="fecha" role="alert"></p>
+            </div>
+
+            <div class="campo">
+              <label for="p-hora">Hora <span class="campo__opcional">(opcional)</span></label>
+              <input id="p-hora" name="hora" type="time" min="08:00" max="21:30" step="900" data-campo />
+            </div>
+
+            <div class="campo campo--ancho">
+              <label for="p-dedicatoria">Dedicatoria <span class="campo__opcional">(opcional, para tartas)</span></label>
+              <input id="p-dedicatoria" name="dedicatoria" type="text" maxlength="80" data-campo placeholder="Felicidades, Lucía" />
+            </div>
+
+            <div class="campo">
+              <label for="p-nombre">Nombre</label>
+              <input id="p-nombre" name="nombre" type="text" autocomplete="given-name" data-campo required aria-describedby="e-nombre" />
+              <p class="campo__error" id="e-nombre" data-error="nombre" role="alert"></p>
+            </div>
+
+            <div class="campo">
+              <label for="p-apellidos">Apellidos</label>
+              <input id="p-apellidos" name="apellidos" type="text" autocomplete="family-name" data-campo required aria-describedby="e-apellidos" />
+              <p class="campo__error" id="e-apellidos" data-error="apellidos" role="alert"></p>
+            </div>
+
+            <div class="campo campo--ancho">
+              <label for="p-telefono">Teléfono</label>
+              <input id="p-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" data-campo required placeholder="600 000 000" aria-describedby="e-telefono" />
+              <p class="campo__error" id="e-telefono" data-error="telefono" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="pedido__acciones">
+            <button class="boton boton--lleno" type="submit">
+              <span class="boton__texto">Enviar por WhatsApp</span>
+              <span class="boton__icono" aria-hidden="true">→</span>
+            </button>
+            <a class="boton" href="tel:+34911721853">
+              <span class="boton__texto">Prefiero llamar · 91 172 18 53</span>
+              <span class="boton__icono" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <p class="pedido__estado" data-estado role="status" aria-live="polite"></p>
+          <!-- PENDIENTE: texto de privacidad (RGPD) del cliente: qué datos se recogen y para qué -->
+        </form>
       </section>
     </main>
   </div>
@@ -251,7 +296,7 @@
 
       <div>
         <h2 class="pie__titulo">Contacto</h2>
-        <p><a href="tel:+34911721853">91 172 18 53</a><br /><a href="mailto:info@pasteleriabergue.com">info@pasteleriabergue.com</a></p>
+        <p><a href="tel:+34911721853">91 172 18 53</a><br /><a href="https://wa.me/34629444745" target="_blank" rel="noopener">WhatsApp · 629 44 47 45</a><br /><a href="mailto:info@pasteleriabergue.com">info@pasteleriabergue.com</a></p>
       </div>
 
       <nav aria-label="Secciones">
@@ -269,32 +314,10 @@
     <p class="pie__legal">© 2026 Bergue Montecarmelo</p>
   </footer>
 
-  <script type="module" src="js/hero.js?v=38"></script>
+  <script type="module" src="js/hero.js?v=37"></script>
   <script type="module" src="js/pagina.js?v=37"></script>
-  <script type="module" src="js/oferta.js?v=56"></script>
+  <script type="module" src="js/oferta.js?v=37"></script>
   <script type="module" src="js/conocenos.js?v=37"></script>
-<dialog class="visor" aria-labelledby="visor-titulo" data-visor data-lenis-prevent>
-  <header class="visor__cabeza">
-    <h4 class="visor__titulo" id="visor-titulo" data-visor-titulo></h4>
-    <p class="visor__pagina" aria-live="polite" data-visor-pagina></p>
-    <button type="button" class="visor__modo" aria-pressed="false" data-visor-modo>Ver página completa</button>
-    <a class="visor__pdf" href="#" download data-visor-pdf>Descargar PDF</a>
-    <button type="button" class="visor__cerrar" aria-label="Cerrar catálogo" autofocus data-visor-cerrar>×</button>
-  </header>
-
-  <ol class="visor__miniaturas" data-visor-minis></ol>
-
-  <div class="visor__zona">
-    <div class="visor__hoja" data-visor-hoja>
-      <img class="visor__img" alt="" data-visor-img />
-    </div>
-    <button type="button" class="visor__flecha visor__flecha--ant" aria-label="Página anterior" data-visor-ant>‹</button>
-    <button type="button" class="visor__flecha visor__flecha--sig" aria-label="Página siguiente" data-visor-sig>›</button>
-  </div>
-</dialog>
-
-
-<script type="application/json" id="catalogos-datos">[{"id":"tartas","titulo":"Carta de tartas","pdf":"assets/catalogos/tartas.pdf","paginas":["assets/catalogos/tartas/1.webp","assets/catalogos/tartas/2.webp","assets/catalogos/tartas/3.webp","assets/catalogos/tartas/4.webp","assets/catalogos/tartas/5.webp","assets/catalogos/tartas/6.webp","assets/catalogos/tartas/7.webp","assets/catalogos/tartas/8.webp","assets/catalogos/tartas/9.webp","assets/catalogos/tartas/10.webp","assets/catalogos/tartas/11.webp","assets/catalogos/tartas/12.webp","assets/catalogos/tartas/13.webp","assets/catalogos/tartas/14.webp","assets/catalogos/tartas/15.webp","assets/catalogos/tartas/16.webp","assets/catalogos/tartas/17.webp","assets/catalogos/tartas/18.webp","assets/catalogos/tartas/19.webp"]},{"id":"pasteles","titulo":"Carta de pasteles","pdf":"assets/catalogos/pasteles.pdf","paginas":["assets/catalogos/pasteles/1.webp","assets/catalogos/pasteles/2.webp","assets/catalogos/pasteles/3.webp"]},{"id":"pastas","titulo":"Pastas de té","pdf":"assets/catalogos/pastas.pdf","paginas":["assets/catalogos/pastas/1.webp","assets/catalogos/pastas/2.webp","assets/catalogos/pastas/3.webp"]}]</script>
-<script type="module" src="js/catalogos.js?v=1"></script>
+  <script type="module" src="js/encargo.js?v=38"></script>
 </body>
 </html>
