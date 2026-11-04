@@ -33,3 +33,24 @@ function ajustarTitulo() {
 partirLetras();
 document.fonts.ready.then(ajustarTitulo);
 new ResizeObserver(ajustarTitulo).observe(hero);
+
+// La imagen usa object-fit: contain: el vapor sigue sus dimensiones visibles,
+// no las de la columna, para quedar siempre encima de la taza.
+const producto = hero.querySelector(".hero__producto");
+const imagen = producto.querySelector(".hero__img");
+const vapor = producto.querySelector(".hero__vapor");
+
+function ajustarVapor() {
+  if (!imagen.naturalWidth || !imagen.naturalHeight) return;
+  const escala = Math.min(imagen.clientWidth / imagen.naturalWidth, imagen.clientHeight / imagen.naturalHeight);
+  const ancho = imagen.naturalWidth * escala;
+  const alto = imagen.naturalHeight * escala;
+  vapor.style.width = `${ancho}px`;
+  vapor.style.height = `${alto}px`;
+  vapor.style.left = `${imagen.offsetLeft + (imagen.clientWidth - ancho) / 2}px`;
+  vapor.style.top = `${imagen.offsetTop + imagen.clientHeight - alto}px`;
+}
+
+new ResizeObserver(ajustarVapor).observe(producto);
+imagen.addEventListener("load", ajustarVapor);
+ajustarVapor();
